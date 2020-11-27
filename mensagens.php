@@ -22,6 +22,7 @@ define(M_CONTRIBUA,array(array(
 define(M_GITHUB,array(array(
    "text" => $lang['github'],
    "url" => "https://github.com/renatomb/meuPixBot")));
+define(COMOCOLABORAR,"Você pode colaborar com o bot das seguintes formas.");
 $lang['info'] = "Info ℹ";
 $lang['vote'] = "Votar ⭐";
 $lang['cancel'] = "Cancelar ❌";

@@ -609,10 +609,10 @@ else if($status == "feedback"){
         sm($chatID, $lang['infomsg'], $menu, 'HTML', false, false, false, true);
     } else if($msg == GITHUB){
       $menu[] = M_GITHUB;
-      sm($chatID, $lang['opensource'], $menu, 'HTML', false, false, false, true);
+      sm($chatID, GITHUB, $menu, 'HTML', false, false, false, true);
     } else if($msg == CONTRIBUA){
         $menu[] = M_CONTRIBUA;
-        sm($chatID, $lang['supportmetext'], $menu, 'HTML', false, false, false, true);
+        sm($chatID, COMOCOLABORAR, $menu, 'HTML', false, false, false, true);
     } else if($msg == $lang['inlinemode']){
         inlinemodeset($invertmemodata);
     } else if($msg == $lang['deleteallnote']){
