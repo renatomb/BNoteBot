@@ -2,6 +2,11 @@
 require('config.php');
 require('class-http-request.php');
 require('functions.php');
+include('mensagens.php');
+$dateformat = "d-m-Y H:i:s";
+$dateformatnosec = "d-m-Y H:i";
+$timezone = "America/Fortaleza";
+date_default_timezone_set($timezone);
 
 $content = file_get_contents('php://input');
 $update = json_decode($content, true);
@@ -26,7 +31,7 @@ if ($update["message"]) {
 $result = $dbuser->query("SELECT * FROM BNoteBot_user WHERE userID = '" . $userID . "'") or die("0");
 $numrows = mysqli_num_rows($result);
 if($numrows == 0 && $update["inline_query"]["id"] == false){
-    $query = "INSERT INTO BNoteBot_user (userID, username, name,lang) VALUES ('$userID', '$username', '" . $dbuser->real_escape_string($name) . "','pt')";
+    $query = "INSERT INTO BNoteBot_user (userID, username, name) VALUES ('$userID', '$username', '" . $dbuser->real_escape_string($name) . "')";
     $result = $dbuser->query($query) or die("0");
 } else {
     $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -35,13 +40,6 @@ if($numrows == 0 && $update["inline_query"]["id"] == false){
     $invertmemodata = $row['invertmemodata'];
     $justwritemode = $row['justwritemode'];
 }
-
-
-include('mensagens.php');
-$dateformat = "d-m-Y H:i:s";
-$dateformatnosec = "d-m-Y H:i";
-$timezone = "America/Fortaleza";
-date_default_timezone_set($timezone);
 
 if ($update["chosen_inline_result"]) {
     $result = $dbuser->query("SELECT * FROM BNoteBot_memo WHERE id = " . $update["chosen_inline_result"]["result_id"]);
@@ -650,7 +648,7 @@ else if($status == "feedback"){
     } else {
         switch ($msg){
             case '/start':
-                menu($lang['welcome']);
+                menu(BEMVINDO);
                 break;
             case '/start settingsinline':
                 inlinemodeset($invertmemodata);
