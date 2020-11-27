@@ -434,33 +434,10 @@ if ($update["chosen_inline_result"]) {
 $sexploded = explode("-", $status);
 
 if($status == "select"){
-    if($msg == "English 🇬🇧"){
-        include($langdir . 'message.en.php');
-        $dbuser->query("UPDATE BNoteBot_user SET lang='en' WHERE userID='$userID'");
-        $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
-    } else if($msg == "Italiano 🇮🇹"){
-        include($langdir . 'message.it.php');
-        menu($lang['welcome']);
-        $dbuser->query("UPDATE BNoteBot_user SET lang='it' WHERE userID='$userID'");
-        $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
-    } else if($msg == "Deutsch 🇩🇪"){
-        include($langdir . 'message.de.php');
-        menu($lang['welcome']);
-        $dbuser->query("UPDATE BNoteBot_user SET lang='de' WHERE userID='$userID'");
-        $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
-    } else if($msg == "Português 🇧🇷"){
-        include($langdir . 'message.pt.php');
-        menu($lang['welcome']);
-        $dbuser->query("UPDATE BNoteBot_user SET lang='pt' WHERE userID='$userID'");
-        $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
-    } else if($msg == "Russian 🇷🇺"){
-        include($langdir . 'message.ru.php');
-        menu($lang['welcome']);
-        $dbuser->query("UPDATE BNoteBot_user SET lang='ru' WHERE userID='$userID'");
-        $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
-    } else {
-        langmenu($chatID);
-    }
+    include('mensagens.php');
+    menu(BEMVINDO);
+    $dbuser->query("UPDATE BNoteBot_user SET lang='pt' WHERE userID='$userID'");
+    $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
 } else if($status == "addmemo"){
     if($msg == $lang['cancel']){
         $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
