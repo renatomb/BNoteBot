@@ -9,8 +9,9 @@ $timezone = "America/Fortaleza";
 date_default_timezone_set($timezone);
 
 $content = file_get_contents('php://input');
-$logfile=fopen("../log.log","w+");
+$logfile=fopen("../log.log","a");
 fwrite($logfile,"$content\n");
+fwrite($logfile,"----------------------------\n");
 fclose($logfile);
 $update = json_decode($content, true);
 
