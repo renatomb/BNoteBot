@@ -2,7 +2,6 @@
 require('config.php');
 require('class-http-request.php');
 require('functions.php');
-require('mensagens.php');
 
 $content = file_get_contents('php://input');
 $update = json_decode($content, true);
@@ -39,8 +38,7 @@ if($numrows == 0 && $update["inline_query"]["id"] == false){
 }
 
 
-include($langdir . 'message.en.php');
-include($langdir . 'message.pt.php');
+include('mensagens.php');
 $dateformat = "d-m-Y H:i:s";
 $dateformatnosec = "d-m-Y H:i";
 if($timezone == FALSE){
