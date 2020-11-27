@@ -34,16 +34,13 @@ if($numrows == 0 && $update["inline_query"]["id"] == false){
     $language = $lang = $row['lang'];
     $invertmemodata = $row['invertmemodata'];
     $justwritemode = $row['justwritemode'];
-    $timezone = $row['timezone'];
 }
 
 
 include('mensagens.php');
 $dateformat = "d-m-Y H:i:s";
 $dateformatnosec = "d-m-Y H:i";
-if($timezone == FALSE){
-    $timezone = "America/Brasilia";
-}
+$timezone = "America/Fortaleza";
 date_default_timezone_set($timezone);
 
 if ($update["chosen_inline_result"]) {
@@ -480,12 +477,12 @@ if($status == "select"){
         }
         $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
     }
-} else if($status == "timezone"){
+} 
+/*else if($status == "timezone"){
     if($msg == $lang['cancel']){
         $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
         menu($lang['cancelled']);
     } else if($msg == $lang['defaulttimezone']) {
-        $dbuser->query("UPDATE BNoteBot_user SET timezone='' WHERE userID='$userID'");
         $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
         menu($lang['savedt']);
     } else {
@@ -498,7 +495,8 @@ if($status == "select"){
             sm($chatID, $lang['invalidtimezone']);
         }
     }
-} else if($status == "feedback"){
+}*/
+else if($status == "feedback"){
     if($msg == $lang['cancel']){
         menu($lang['cancelled']);
     } else {
@@ -632,22 +630,21 @@ if($status == "select"){
     } else if($msg == $lang['info']){
         $menu[] = array(array(
             "text" => $lang['subchannel'],
-            "url" => "https://telegram.me/joinchat/AeDFuD2cuxFaLAyV6aly5g"));
+            "url" => "https://telegram.me/r3n4t0"));
         sm($chatID, $lang['infomsg'], $menu, 'HTML', false, false, false, true);
     } else if($msg == $lang['github']){
       $menu[] = array(array(
           "text" => $lang['github'],
-          "url" => "https://github.com/franci22/BNoteBot"));
+          "url" => "https://github.com/renatomb/meuPixBot"));
       sm($chatID, $lang['opensource'], $menu, 'HTML', false, false, false, true);
     } else if($msg == $lang['supportme']){
         $menu[] = array(array(
             "text" => $lang['vote'],
-            "url" => "https://telegram.me/storebot?start=bnotebot"), array(
-            "text" => "PayPal 💳",
-            "url" => "https://paypal.me/franci22"), array(
-            "text" => "Bitcoin 💰",
-            "url" => "https://paste.ubuntu.com/24299810/"
-            ));
+            "url" => "https://telegram.me/storebot?start=meupix_bot"), array(
+            "text" => "PicPay 💳",
+            "url" => "http://picpay.me/renatomb")
+//            , array("text" => "Bitcoin 💰","url" => "https://paste.ubuntu.com/24299810/")
+        );
         sm($chatID, $lang['supportmetext'], $menu, 'HTML', false, false, false, true);
     } else if($msg == $lang['inlinemode']){
         inlinemodeset($invertmemodata);
@@ -658,12 +655,14 @@ if($status == "select"){
             "text" => $lang['no'],
             "callback_data" => "confdeleteallno"));
         sm($chatID, $lang['askdeleteallnote'], $menu, 'HTML', false, false, false, true);
-    } else if($msg == $lang['settimezone']){
+    } 
+    /*else if($msg == $lang['settimezone']){
         $dbuser->query("UPDATE BNoteBot_user SET status='timezone' WHERE userID='$userID'");
         $menu[] = array($lang['defaulttimezone']);
         $menu[] = array($lang['cancel']);
         sm($chatID, $lang['settimezonetxt'] . "\n\n" . $lang['currenttimezone'] . $timezone, $menu);
-    } else if($msg == $lang['justwritemode']){
+    } */
+    else if($msg == $lang['justwritemode']){
         if($justwritemode){ $justwritemodetxt = $lang['enabled']; } else { $justwritemodetxt = $lang['disabled']; }
         $menu[] = array(array(
             "text" => $justwritemodetxt,
@@ -731,7 +730,7 @@ function setmenu($text){
     $menu[] = array($lang['inlinemode']);
     $menu[] = array($lang['justwritemode']);
     $menu[] = array($lang['deleteallnote']);
-    $menu[] = array($lang['settimezone']);
+  //  $menu[] = array($lang['settimezone']);
     $menu[] = array($lang['cancel']);
     sm($chatID, $text, $menu, 'HTML', false, false, true);
 }
