@@ -37,56 +37,15 @@ if($numrows == 0 && $update["inline_query"]["id"] == false){
     $timezone = $row['timezone'];
 }
 
-switch ($lang) {
-    case 'it':
-        include($langdir . 'message.it.php');
-        $dateformat = "d-m-Y H:i:s";
-        $dateformatnosec = "d-m-Y H:i";
-        if($timezone == FALSE){
-            $timezone = "Europe/Rome";
-        }
-        date_default_timezone_set($timezone);
-        break;
-    case 'en':
-        include($langdir . 'message.en.php');
-        $dateformat = "Y-m-d H:i:s";
-        $dateformatnosec = "Y-m-d H:i";
-        if($timezone == FALSE){
-            $timezone = "Europe/London";
-        }
-        date_default_timezone_set($timezone);
-        break;
-    case 'de':
-        include($langdir . 'message.en.php');
-        include($langdir . 'message.de.php');
-        $dateformat = "d-m-Y H:i:s";
-        $dateformatnosec = "d-m-Y H:i";
-        if($timezone == FALSE){
-            $timezone = "Europe/Berlin";
-        }
-        date_default_timezone_set($timezone);
-        break;
-    case 'pt':
-        include($langdir . 'message.en.php');
-        include($langdir . 'message.pt.php');
-        $dateformat = "d-m-Y H:i:s";
-        $dateformatnosec = "d-m-Y H:i";
-        if($timezone == FALSE){
-            $timezone = "America/Brasilia";
-        }
-        date_default_timezone_set($timezone);
-        break;
-    case 'ru':
-        include($langdir . 'message.en.php');
-        include($langdir . 'message.ru.php');
-        $dateformat = "d-m-Y H:i:s";
-        $dateformatnosec = "d-m-Y H:i";
-        if($timezone == FALSE){
-            $timezone = "Europe/Moscow";
-        }
-        date_default_timezone_set($timezone);
-        break;
+
+include($langdir . 'message.en.php');
+include($langdir . 'message.pt.php');
+$dateformat = "d-m-Y H:i:s";
+$dateformatnosec = "d-m-Y H:i";
+if($timezone == FALSE){
+    $timezone = "America/Brasilia";
 }
+date_default_timezone_set($timezone);
 
 if ($update["chosen_inline_result"]) {
     $result = $dbuser->query("SELECT * FROM BNoteBot_memo WHERE id = " . $update["chosen_inline_result"]["result_id"]);
@@ -724,7 +683,7 @@ if($status == "select"){
                 inlinemodeset($invertmemodata);
                 break;
             default:
-                if ($update["message"]["text"] || $update["message"]["voice"]) {
+                if ($update["message"]["text"]) {
                   if ($justwritemode) {
                     if ($update["message"]["text"]) {
                         $dbuser->query("INSERT INTO BNoteBot_memo (userID, type, memo, timestamp) VALUES ('$userID', 'text', '" . $dbuser->real_escape_string($msg) . "', '" . time() . "')");
