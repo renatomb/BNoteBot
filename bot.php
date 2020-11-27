@@ -608,18 +608,10 @@ else if($status == "feedback"){
             "url" => "https://telegram.me/r3n4t0"));
         sm($chatID, $lang['infomsg'], $menu, 'HTML', false, false, false, true);
     } else if($msg == $lang['github']){
-      $menu[] = array(array(
-          "text" => $lang['github'],
-          "url" => "https://github.com/renatomb/meuPixBot"));
+      $menu[] = GITHUB;
       sm($chatID, $lang['opensource'], $menu, 'HTML', false, false, false, true);
     } else if($msg == $lang['supportme']){
-        $menu[] = array(array(
-            "text" => $lang['vote'],
-            "url" => "https://telegram.me/storebot?start=meupix_bot"), array(
-            "text" => "PicPay 💳",
-            "url" => "http://picpay.me/renatomb")
-//            , array("text" => "Bitcoin 💰","url" => "https://paste.ubuntu.com/24299810/")
-        );
+        $menu[] = CONTRIBUA;
         sm($chatID, $lang['supportmetext'], $menu, 'HTML', false, false, false, true);
     } else if($msg == $lang['inlinemode']){
         inlinemodeset($invertmemodata);
@@ -692,10 +684,10 @@ function menu($text){
     global $lang;
     global $chatID;
     $menu[] = array(ADICIONAR);
-    $menu[] = array($lang['savedmemo']);
-    $menu[] = array($lang['info'], $lang['supportme']);
-    $menu[] = array($lang['feedback']);
-    $menu[] = array($lang['settings'], $lang['github']);
+    $menu[] = array(SALVO);
+    $menu[] = array(INFORMACOES, CONTRIBUA);
+    $menu[] = array(FEEDBACK);
+    $menu[] = array(CONFIGURAR, GITHUB);
     sm($chatID, $text, $menu, 'HTML', false, false, true);
 }
 
