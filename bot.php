@@ -2,6 +2,7 @@
 require('config.php');
 require('class-http-request.php');
 require('functions.php');
+require('mensagens.php');
 
 $content = file_get_contents('php://input');
 $update = json_decode($content, true);
@@ -26,7 +27,7 @@ if ($update["message"]) {
 $result = $dbuser->query("SELECT * FROM BNoteBot_user WHERE userID = '" . $userID . "'") or die("0");
 $numrows = mysqli_num_rows($result);
 if($numrows == 0 && $update["inline_query"]["id"] == false){
-    $query = "INSERT INTO BNoteBot_user (userID, username, name) VALUES ('$userID', '$username', '" . $dbuser->real_escape_string($name) . "')";
+    $query = "INSERT INTO BNoteBot_user (userID, username, name,lang) VALUES ('$userID', '$username', '" . $dbuser->real_escape_string($name) . "','pt')";
     $result = $dbuser->query($query) or die("0");
 } else {
     $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -440,7 +441,6 @@ $sexploded = explode("-", $status);
 if($status == "select"){
     if($msg == "English 🇬🇧"){
         include($langdir . 'message.en.php');
-        menu($lang['welcome']);
         $dbuser->query("UPDATE BNoteBot_user SET lang='en' WHERE userID='$userID'");
         $dbuser->query("UPDATE BNoteBot_user SET status='' WHERE userID='$userID'");
     } else if($msg == "Italiano 🇮🇹"){
@@ -676,8 +676,7 @@ if($status == "select"){
     } else {
         switch ($msg){
             case '/start':
-                langmenu($chatID);
-                $dbuser->query("UPDATE BNoteBot_user SET status='select' WHERE userID='$userID'");
+                menu($lang['welcome']);
                 break;
             case '/start settingsinline':
                 inlinemodeset($invertmemodata);
