@@ -1,10 +1,11 @@
 <?php
+global $lang;
 //$lang = array();
 define(BEMVINDO,"Bem vindo ao bot de chaves 🔑 do pix.
 Com esse bot você pode salvar as suas chaves do pix e enviar rapidamente aos seus contatos no telegram sem a necessidade de acessar o aplicativo do seu banco.
 Bot criado por @r3n4t0, gostou? envie um pix! :) 
 8d28bec9-327f-41ee-ad6b-456318c5cce1");
-$lang['addmemo'] = "Adicionar chave 🔑 pix";
+define(ADICIONAR,"Adicionar chave 🔑 pix");
 $lang['info'] = "Info ℹ";
 $lang['vote'] = "Votar ⭐";
 $lang['cancel'] = "Cancelar ❌";

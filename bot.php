@@ -550,7 +550,7 @@ else if($status == "feedback"){
     sm($userID, "*Sent.*", false, "Markdown");
     sm($sexploded[1], $msg);
 } else {
-    if($msg == $lang['addmemo']){
+    if($msg == ADICIONAR){
         $dbuser->query("UPDATE BNoteBot_user SET status='addmemo' WHERE userID='$userID'");
         $menu[] = array($lang['cancel']);
         sm($chatID, $lang['addmemotext_v2'], $menu, 'HTML', false, false, true);
@@ -691,7 +691,7 @@ function langmenu($chatID){
 function menu($text){
     global $lang;
     global $chatID;
-    $menu[] = array($lang['addmemo']);
+    $menu[] = array(ADICIONAR);
     $menu[] = array($lang['savedmemo']);
     $menu[] = array($lang['info'], $lang['supportme']);
     $menu[] = array($lang['feedback']);
