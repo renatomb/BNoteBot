@@ -2,7 +2,7 @@
 require('config.php');
 require('class-http-request.php');
 require('functions.php');
-include('mensagens.php');
+require('mensagens.php');
 $dateformat = "d-m-Y H:i:s";
 $dateformatnosec = "d-m-Y H:i";
 $timezone = "America/Fortaleza";
