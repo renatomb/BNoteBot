@@ -7,17 +7,19 @@ Bot criado por @r3n4t0, gostou? envie um pix! :)
 8d28bec9-327f-41ee-ad6b-456318c5cce1");
 define(ADICIONAR,"Adicionar chave 🔑 pix");
 define(SALVO,"Ver chaves salvas");
-define(CONTRIBUA,array(array(
+define(FEEDBACK,"Feedback 📫");
+define(INFORMACOES,"Informacoes: ");
+define(CONFIGURAR,"Configurações 🔧");
+define(CONTRIBUA,"Colabore com o bot");
+define(GITHUB,"Código fonte");
+define(M_CONTRIBUA,array(array(
    "text" => $lang['vote'],
    "url" => "https://telegram.me/storebot?start=meupix_bot"), array(
    "text" => "PicPay 💳",
    "url" => "http://picpay.me/renatomb")
 //            , array("text" => "Bitcoin 💰","url" => "https://paste.ubuntu.com/24299810/")
 ));
-define(FEEDBACK,"Feedback 📫");
-define(INFORMACOES,"Informacoes: ");
-define(CONFIGURAR,"Configurações 🔧");
-define(GITHUB,array(array(
+define(M_GITHUB,array(array(
    "text" => $lang['github'],
    "url" => "https://github.com/renatomb/meuPixBot")));
 $lang['info'] = "Info ℹ";

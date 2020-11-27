@@ -607,11 +607,11 @@ else if($status == "feedback"){
             "text" => $lang['subchannel'],
             "url" => "https://telegram.me/r3n4t0"));
         sm($chatID, $lang['infomsg'], $menu, 'HTML', false, false, false, true);
-    } else if($msg == $lang['github']){
-      $menu[] = GITHUB;
+    } else if($msg == GITHUB){
+      $menu[] = M_GITHUB;
       sm($chatID, $lang['opensource'], $menu, 'HTML', false, false, false, true);
-    } else if($msg == $lang['supportme']){
-        $menu[] = CONTRIBUA;
+    } else if($msg == CONTRIBUA){
+        $menu[] = M_CONTRIBUA;
         sm($chatID, $lang['supportmetext'], $menu, 'HTML', false, false, false, true);
     } else if($msg == $lang['inlinemode']){
         inlinemodeset($invertmemodata);
