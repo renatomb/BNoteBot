@@ -9,11 +9,12 @@ $timezone = "America/Fortaleza";
 date_default_timezone_set($timezone);
 
 $content = file_get_contents('php://input');
+$update = json_decode($content, true);
+$logtext=print_r($update, true);
 $logfile=fopen("../log.log","a");
-fwrite($logfile,"$content\n");
+fwrite($logfile,"$logtext\n");
 fwrite($logfile,"----------------------------\n");
 fclose($logfile);
-$update = json_decode($content, true);
 
 if ($update["message"]) {
     $chatID = $update["message"]["chat"]["id"];
