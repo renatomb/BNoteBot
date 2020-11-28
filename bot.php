@@ -146,6 +146,7 @@ switch($cmd) {
             if (count($erros) > 0){
                 $resposta.="Erros encontrados:\n" . formata_chaves($erros);
             }
+            $resposta.="Identificador(es): " . implode(", ",$hashtags);
         }
         else {
             $resposta="Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.";
