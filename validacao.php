@@ -26,6 +26,7 @@ function formata_chaves($chaves){
       if (count($v) > 1){ $tipo.="s"; }
       $txt_retorno.="- " . count($v) . " $tipo:" . implode(",",$v) . "\n";
    }
+   return $txt_retorno;
 }
 
 
