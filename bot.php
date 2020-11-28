@@ -50,7 +50,7 @@ if ($update["message"]) {
                 fwrite($logfile,"Tipo nao reconhecido: " . $entidades[$i]["type"] . "$elemento\n");
             }
             $msg=str_replace(" ","",str_replace("$elemento","",$msg));
-            fwrite($logfile,"MSG $msg\n");
+            fwrite($logfile,"MSG:$msg\n");
         }
     }
     $username = $update["message"]["chat"]["username"];
