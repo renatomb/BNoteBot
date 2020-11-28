@@ -53,7 +53,10 @@ if ($update["message"]) {
                     array_push($hashtags,$elemento);
                     break;
                 case "phone_number":
-                    array_push($telefones,$elemento);
+                    if (strlen($elemento)>10) {
+                        array_push($telefones,$elemento);
+                    }
+                    else { $elemento=''; }
                     break;
                 case "email":
                     array_push($emails,$elemento);
