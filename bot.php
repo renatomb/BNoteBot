@@ -24,8 +24,11 @@ if ($update["message"]) {
     $hashtags=array();
     $cmd=false;
     if (is_array($entidades)) {
+        fwrite($logfile,"Entidades é um array\n");
         for ($i=0;$i<count($entidades);$i++){
+            fwrite($logfile,"Iterando $i\n");
             $elemento=substr($update["message"]["text"],$entidades[$i]["offset"],$entidades[$i]["length"]);
+            fwrite($logfile,"Elemento: $elemento\n");
             switch($entidades[$i]["type"]) {
                 case "bot_command":
                     $cmd=$elemento;
@@ -35,6 +38,7 @@ if ($update["message"]) {
                     break;
             }
             $msg=preg_replace("/$elemento/","",$msg);
+            fwrite($logfile,"MSG $msg\n");
         }
     }
     $username = $update["message"]["chat"]["username"];
