@@ -48,7 +48,7 @@ if ($update["message"]) {
             }
             $msg=str_replace("$elemento","",$msg);
         }
-        $mais=explode(" ",$msg);
+        $mais=explode(" ",str_replace("\n","",$msg));
     }
     $username = $update["message"]["chat"]["username"];
     $name = $update["message"]["chat"]["first_name"];
