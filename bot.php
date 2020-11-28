@@ -50,7 +50,6 @@ if ($update["message"]) {
                 fwrite($logfile,"Tipo nao reconhecido: " . $entidades[$i]["type"] . "$elemento\n");
             }
             $msg=str_replace(" ","",str_replace("$elemento","",$msg));
-            fwrite($logfile,"MSG:$msg\n");
         }
     }
     $username = $update["message"]["chat"]["username"];
@@ -60,7 +59,7 @@ if ($update["message"]) {
 $logtext=print_r($hashtags, true);
 fwrite($logfile,"Hashtags: $logtext\n");
 fwrite($logfile,"COMANDO $cmd\n");
-fwrite($logfile,"MSG $msg\n");
+fwrite($logfile,"MSG:$msg\n");
 fwrite($logfile,"--------------------------\n");
 fclose($logfile);
 /*else if($update["callback_query"]["data"]){
