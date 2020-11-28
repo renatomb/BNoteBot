@@ -19,10 +19,29 @@ fclose($logfile);
 if ($update["message"]) {
     $chatID = $update["message"]["chat"]["id"];
     $userID = $update["message"]["from"]["id"];
+    $entidades = $update["message"]["entities"];
     $msg = $update["message"]["text"];
+    $hashtags=array();
+    $cmd=false;
+    if (is_array($entidades)) {
+        for ($i=0;$i<count($entidades);$i++){
+            $elemento=substr($update["message"]["text"],$entidades[$i]["offset"],$entidades[$i]["length"]);
+            switch($entidades[$i]["type"]) {
+                case "bot_command":
+                    $cmd=$elemento;
+                    break;
+                case "hashtag":
+                    array_push($hashtags,$elemento);
+                    break;
+            }
+            $msg=preg_replace("/$elemento/","",$msg);
+        }
+    }
     $username = $update["message"]["chat"]["username"];
     $name = $update["message"]["chat"]["first_name"];
-} else if($update["callback_query"]["data"]){
+} 
+
+/*else if($update["callback_query"]["data"]){
     $chatID = $update["callback_query"]["message"]["chat"]["id"];
     $userID = $update["callback_query"]["from"]["id"];
     $msgid = $update["callback_query"]["message"]["message_id"];
@@ -31,7 +50,7 @@ if ($update["message"]) {
     $userID = $update["inline_query"]["from"]["id"];
     $username = $update["inline_query"]["from"]["username"];
     $name = $update["inline_query"]["from"]["first_name"];
-}
+}*/
 
 $result = $dbuser->query("SELECT * FROM BNoteBot_user WHERE userID = '" . $userID . "'") or die("0");
 $numrows = mysqli_num_rows($result);
@@ -46,6 +65,14 @@ if($numrows == 0 && $update["inline_query"]["id"] == false){
     $justwritemode = $row['justwritemode'];
 }
 
+if ($cmd) {
+    sm($chatId,"Comando: $cmd, conteudo: $msg");
+}
+else {
+    sm($chatID, "Recebido $msg");
+}
+
+/*
 if ($update["chosen_inline_result"]) {
     $result = $dbuser->query("SELECT * FROM BNoteBot_memo WHERE id = " . $update["chosen_inline_result"]["result_id"]);
     $row = $result->fetch_assoc();
@@ -56,7 +83,8 @@ if ($update["chosen_inline_result"]) {
     );
     new HttpRequest("post", "https://api.telegram.org/$api/editmessagetext", $args);
     $dbuser->query("INSERT INTO BNoteBot_sentinline (memo_id, msg_id) VALUES (". $update["chosen_inline_result"]["result_id"] .", '". $update["chosen_inline_result"]["inline_message_id"] ."')");
-} elseif($update["inline_query"]){
+}
+elseif($update["inline_query"]){
     $result = $dbuser->query("SELECT * FROM BNoteBot_memo WHERE userID = '" . $userID . "' ORDER BY timestamp DESC");
     if($result->num_rows == 0){
         $json[] = array(
@@ -106,7 +134,8 @@ if ($update["chosen_inline_result"]) {
         'switch_pm_parameter' => "settingsinline"
     );
     new HttpRequest("post", "https://api.telegram.org/$api/answerInlineQuery", $args);
-} else if($update["callback_query"]["data"]){
+}
+else if($update["callback_query"]["data"]){
     $textalert = "";
     $alert = false;
     $data = explode("-", $update["callback_query"]["data"]);
@@ -475,7 +504,7 @@ if($status == "select"){
             sm($chatID, $lang['invalidtimezone']);
         }
     }
-}*/
+}
 else if($status == "feedback"){
     if($msg == $lang['cancel']){
         menu($lang['cancelled']);
@@ -628,12 +657,6 @@ else if($status == "feedback"){
             "callback_data" => "confdeleteallno"));
         sm($chatID, $lang['askdeleteallnote'], $menu, 'HTML', false, false, false, true);
     } 
-    /*else if($msg == $lang['settimezone']){
-        $dbuser->query("UPDATE BNoteBot_user SET status='timezone' WHERE userID='$userID'");
-        $menu[] = array($lang['defaulttimezone']);
-        $menu[] = array($lang['cancel']);
-        sm($chatID, $lang['settimezonetxt'] . "\n\n" . $lang['currenttimezone'] . $timezone, $menu);
-    } */
     else if($msg == $lang['justwritemode']){
         if($justwritemode){ $justwritemodetxt = $lang['enabled']; } else { $justwritemodetxt = $lang['disabled']; }
         $menu[] = array(array(
@@ -669,7 +692,7 @@ else if($status == "feedback"){
                 break;
         }
     }
-}
+} */
 
 function langmenu($chatID){
     $text = "🇬🇧 - Welcome! Select a language:
