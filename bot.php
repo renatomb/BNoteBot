@@ -23,9 +23,9 @@ if ($update["message"]) {
     $entidades = $update["message"]["entities"];
     $msg = $update["message"]["text"];
     for ($i=0;$i<strlen($msg);$i++){
-        $ascii[]=ord(substr($msg,$i,1));
+        $ascii[]=str_pad(ord(substr($msg,$i,1)), 3, "0", STR_PAD_LEFT);
     }
-    fwrite($logfile,"Ascii:" . implode(",",$ascii) . "\n");
+    fwrite($logfile,"Ascii:" . implode(" ",$ascii) . "\n");
     $hashtags = $telefones = $emails =array();
     $cmd=false;
     if (is_array($entidades)) {
