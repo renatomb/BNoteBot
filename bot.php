@@ -28,7 +28,7 @@ if ($update["message"]) {
         fwrite($logfile,"Entidades é um array\n");
         for ($i=0;$i<count($entidades);$i++){
             fwrite($logfile,"Iterando $i\n");
-            $elemento=substr($update["message"]["text"],$entidades[$i]["offset"],$entidades[$i]["length"]);
+            $elemento=substr(preg_replace('/[[:^print:]]/', '',$update["message"]["text"]),$entidades[$i]["offset"],$entidades[$i]["length"]);
             fwrite($logfile,"Elemento: $elemento\n");
             switch($entidades[$i]["type"]) {
                 case "bot_command":
@@ -146,7 +146,7 @@ switch($cmd) {
             if (count($erros) > 0){
                 $resposta.="Erros encontrados:\n" . formata_chaves($erros);
             }
-            $resposta.="Identificador(es): " . implode(", ",$hashtags);
+            $resposta.="Hashtag(s): " . implode(", ",$hashtags);
         }
         else {
             $resposta="Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.";
