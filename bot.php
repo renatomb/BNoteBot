@@ -44,7 +44,7 @@ if ($update["message"]) {
                     $email=$elemento;
                     break;
                 case "code":
-                    $uuid=str_replace("-","",$elemento);
+                    $uuid=str_replace(" ","",str_replace("-","",$elemento));
                     break;
                 default:
                 fwrite($logfile,"Tipo nao reconhecido: " . $entidades[$i]["type"] . "$elemento\n");
