@@ -56,7 +56,7 @@ function valida_uuid($uuid_text) {
 }
 
 function valida_telefone($fone){
-   return preg_match("/^\(?\d{2}\)?[\s-]?[\s9]\d{4}-?\d{4}$/",$fone);
+   return preg_match("/^(\+)?(55)?[\s]?\(?\d{2}\)?[\s-]?[\s9]\d{4}-?\d{4}$/",$fone);
 }
 
 function valida_cnpj($cnpj) {
