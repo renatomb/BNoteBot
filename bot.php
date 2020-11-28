@@ -3,6 +3,7 @@ require('config.php');
 require('class-http-request.php');
 require('functions.php');
 require('mensagens.php');
+require('validacao.php');
 $dateformat = "d-m-Y H:i:s";
 $dateformatnosec = "d-m-Y H:i";
 $timezone = "America/Fortaleza";

@@ -12,7 +12,7 @@ define(INFORMACOES,"Informacoes: ");
 define(CONFIGURAR,"Configurações 🔧");
 define(CONTRIBUA,"Colabore com o bot");
 define(GITHUB,"Código fonte");
-define(M_CONTRIBUA,array(array(
+/*define(M_CONTRIBUA,array(array(
    "text" => $lang['vote'],
    "url" => "https://telegram.me/storebot?start=meupix_bot"), array(
    "text" => "PicPay 💳",
@@ -21,7 +21,7 @@ define(M_CONTRIBUA,array(array(
 ));
 define(M_GITHUB,array(array(
    "text" => $lang['github'],
-   "url" => "https://github.com/renatomb/meuPixBot")));
+   "url" => "https://github.com/renatomb/meuPixBot")));*/
 define(COMOCOLABORAR,"Você pode colaborar com o bot das seguintes formas.");
 $lang['info'] = "Info ℹ";
 $lang['vote'] = "Votar ⭐";
