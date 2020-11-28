@@ -60,6 +60,7 @@ if ($update["message"]) {
 $logtext=print_r($hashtags, true);
 fwrite($logfile,"Hashtags: $logtext\n");
 fwrite($logfile,"COMANDO $cmd\n");
+fwrite($logfile,"MSG $msg\n");
 fwrite($logfile,"--------------------------\n");
 fclose($logfile);
 /*else if($update["callback_query"]["data"]){
