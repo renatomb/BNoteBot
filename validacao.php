@@ -56,8 +56,8 @@ function decode_brcode($brcode){
       $n+=2;
       $retorno[$codigo]="$valor";
       fwrite($lcode,"$codigo:$valor\n");
-      $brcode=substr($brcode,$n,strlen($brcode)-$n);
-      fwrite($lcode,"R:$brcode\n");
+      //$brcode=substr($brcode,$n,strlen($brcode)-$n);
+      //fwrite($lcode,"R:$brcode\n");
    }
    fclose($lcode);
    return $retorno;
