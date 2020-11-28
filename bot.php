@@ -53,6 +53,8 @@ if ($update["message"]) {
     $username = $update["message"]["chat"]["username"];
     $name = $update["message"]["chat"]["first_name"];
 } 
+$resposta='';
+
 
 $logtext=print_r($hashtags, true);
 fwrite($logfile,"Hashtags: $logtext\n");
@@ -140,16 +142,20 @@ switch($cmd) {
                 }
             }
             $opaopa=print_r($chaves, true) . "\n" . print_r($erros, true);
-            $resposta="Inclusão de chaves Pix no BOT:
+            $resposta="Inclusão de chaves Pix no @meuPix_bot:
             $opaopa";
         }
         else {
-            sm($chatID,"Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.");
+            $resposta="Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.";
         }
     break;
     default:
-        sm($chatID,"Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos suportados pelo bot.");
+        $resposta="Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos suportados pelo bot.";
         break;
+}
+
+if ($resposta != ''){
+    sm($chatID,$resposta);
 }
 
 /*
