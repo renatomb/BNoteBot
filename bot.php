@@ -21,9 +21,17 @@ if ($update["message"]) {
     $chatID = $update["message"]["chat"]["id"];
     $userID = $update["message"]["from"]["id"];
     $entidades = $update["message"]["entities"];
-    $msg = $update["message"]["text"];
-    for ($i=0;$i<strlen($msg);$i++){
-        $ascii[]=str_pad(ord(substr($msg,$i,1)), 3, "0", STR_PAD_LEFT);
+    $msg = '';
+    for ($i=0;$i<strlen($update["message"]["text"];);$i++){
+        $ltr=substr($update["message"]["text"];,$i,1);
+        $cha=ord($ltr);
+        if ($cha != 240) {
+            $ascii[]=str_pad($cha), 3, "0", STR_PAD_LEFT);
+            $msg.=$ltr;
+        }
+        else {
+            $i+=3;
+        }
     }
     fwrite($logfile,"Ascii:" . implode(" ",$ascii) . "\n");
     $hashtags = $telefones = $emails =array();
