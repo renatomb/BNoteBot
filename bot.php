@@ -21,8 +21,8 @@ if ($update["message"]) {
     $chatID = $update["message"]["chat"]["id"];
     $userID = $update["message"]["from"]["id"];
     $entidades = $update["message"]["entities"];
-    $msg = '';
     $update["message"]["text"]=str_replace("\n"," ",$update["message"]["text"]);
+    $msg = '';
     for ($i=0;$i<strlen($update["message"]["text"]);$i++){
         $ltr=substr($update["message"]["text"],$i,1);
         $cha=ord($ltr);
@@ -176,9 +176,16 @@ switch($cmd) {
             $resposta="Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.";
         }
     break;
+    case "/codigo":
+        $resposta="Processando seu BRCode...";
+        $brcode=substr($msg,1,strlen($msg)-1);
+        $z=decode_brcode($brcode);
+        $logtext=print_r($z, true);
+        fwrite($logfile,"BRCode: $logtext\n");
+    break;
     default:
         $resposta="Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos suportados pelo bot.";
-        break;
+    break;
 }
 
 if ($resposta != ''){
