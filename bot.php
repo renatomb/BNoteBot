@@ -21,7 +21,7 @@ if ($update["message"]) {
     $chatID = $update["message"]["chat"]["id"];
     $userID = $update["message"]["from"]["id"];
     $entidades = $update["message"]["entities"];
-    $msg = $update["message"]["text"];
+    $msg = preg_replace("/[^[:alnum:][:space:]-]/u", '', $update["message"]["text"]);
     $hashtags = $telefones = $emails =array();
     $cmd=false;
     if (is_array($entidades)) {
@@ -48,7 +48,7 @@ if ($update["message"]) {
             }
             $msg=str_replace("$elemento","",$msg);
         }
-        $mais=explode(" ",str_replace("\n","",$msg));
+        $mais=explode(" ",$msg);
     }
     $username = $update["message"]["chat"]["username"];
     $name = $update["message"]["chat"]["first_name"];
