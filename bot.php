@@ -75,6 +75,8 @@ $resposta='';
 
 $logtext=print_r($hashtags, true);
 fwrite($logfile,"Hashtags: $logtext\n");
+$logtext=print_r($emails, true);
+fwrite($logfile,"Email: $logtext\n");
 fwrite($logfile,"COMANDO $cmd\n");
 fwrite($logfile,"MSG:$msg\n");
 fwrite($logfile,"--------------------------\n");
