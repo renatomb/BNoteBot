@@ -56,7 +56,7 @@ if ($update["message"]) {
                     if (strlen($elemento)>10) {
                         array_push($telefones,$elemento);
                     }
-                    else { $elemento=''; }
+                    else { $elemento=''; }
                     break;
                 case "email":
                     array_push($emails,$elemento);
@@ -192,6 +192,8 @@ if ($resposta != ''){
 
 fwrite($logfile,"--------------------------\n");
 fclose($logfile);
+
+
 /*
 if ($update["chosen_inline_result"]) {
     $result = $dbuser->query("SELECT * FROM BNoteBot_memo WHERE id = " . $update["chosen_inline_result"]["result_id"]);
