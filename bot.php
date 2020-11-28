@@ -49,7 +49,7 @@ if ($update["message"]) {
                 default:
                 fwrite($logfile,"Tipo nao reconhecido: " . $entidades[$i]["type"] . "$elemento\n");
             }
-            $msg=str_replace("$elemento","",$msg);
+            $msg=str_replace(" ","",str_replace("$elemento","",$msg));
             fwrite($logfile,"MSG $msg\n");
         }
     }
