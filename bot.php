@@ -37,6 +37,8 @@ if ($update["message"]) {
                 case "hashtag":
                     array_push($hashtags,$elemento);
                     break;
+                default:
+                fwrite($logfile,"Tipo nao reconhecido: " . $entidades[$i]["type"] . "$elemento\n");
             }
             $msg=preg_replace("/$elemento/","",$msg);
             fwrite($logfile,"MSG $msg\n");
@@ -114,7 +116,7 @@ switch($cmd) {
 
             }
             else {
-                sm($chatID,"Não foi possível reconhecer o tipo de chave, verifique a chave digitada.");
+                sm($chatID,"Não foi possível reconhecer o tipo de chave, verifique a chave digitada **$msg**.");
             }
 
         }
