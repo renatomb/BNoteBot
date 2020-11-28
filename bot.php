@@ -33,6 +33,7 @@ if ($update["message"]) {
             $i+=3;
         }
     }
+    $mensagem=$msg;
     fwrite($logfile,"Ascii:" . implode(" ",$ascii) . "\n");
     $hashtags = $telefones = $emails =array();
     $cmd=false;
@@ -40,7 +41,7 @@ if ($update["message"]) {
         fwrite($logfile,"Entidades é um array\n");
         for ($i=0;$i<count($entidades);$i++){
             fwrite($logfile,"Iterando $i\n");
-            $elemento=substr(remove_acentos($update["message"]["text"]),$entidades[$i]["offset"],$entidades[$i]["length"]);
+            $elemento=substr(remove_acentos($mensagem),$entidades[$i]["offset"],$entidades[$i]["length"]);
             fwrite($logfile,"Elemento: $elemento\n");
             switch($entidades[$i]["type"]) {
                 case "bot_command":
