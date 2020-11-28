@@ -22,7 +22,7 @@ if ($update["message"]) {
     $userID = $update["message"]["from"]["id"];
     $entidades = $update["message"]["entities"];
     $msg = $update["message"]["text"];
-    $hashtags=array();
+    $hashtags = $telefones = $emails =array();
     $cmd=false;
     if (is_array($entidades)) {
         fwrite($logfile,"Entidades é um array\n");
@@ -38,16 +38,17 @@ if ($update["message"]) {
                     array_push($hashtags,$elemento);
                     break;
                 case "phone_number":
-                    $telefone=$elemento;
+                    array_push($telefones,$elemento);
                     break;
                 case "email":
-                    $email=$elemento;
+                    array_push($emails,$elemento);
                     break;
                 default:
                 fwrite($logfile,"Tipo nao reconhecido: " . $entidades[$i]["type"] . "$elemento\n");
             }
-            $msg=str_replace(" ","",str_replace("$elemento","",$msg));
+            $msg=str_replace("$elemento","",$msg);
         }
+        $mais=explode(" ",$msg);
     }
     $username = $update["message"]["chat"]["username"];
     $name = $update["message"]["chat"]["first_name"];
@@ -89,49 +90,65 @@ switch($cmd) {
     break;
     case "/incluir";
         if (count($hashtags) > 0) {
-            if (strlen($msg) == 11) {
-                if (valida_cpf($msg)) {
-                    sm($chatID,"Entendi, cadastramento de chave de CPF **$msg**");
+            for ($i=0;$i<count($telefones);$i++){
+                $fone=$telefones[$i];
+                if (valida_telefone($fone)){
+                    $chaves["T"][]=$fone;
                 }
                 else {
-                    sm($chatID,"Desculpe mas o CPF utilizado como chave **$msg** não é um CPF válido, verifique os dados informados.");
+                    $erros["T"][]=$fone;
                 }
             }
-            elseif (strlen($msg) == 14) {
-                if (valida_cnpj($msg)) {
-                    sm($chatID,"Entendi, cadastramento de chave de CNPJ **$msg**");
-                }
-                else {
-                    sm($chatID,"Desculpe mas o CNPJ utilizado como chave **$msg** não é um CNPJ válido, verifique os dados informados.");
-                }
-            }
-            elseif (strlen($msg) == 36){
-                $uuid=str_replace("-","",$msg);
-                if (valida_uuid($uuid)) {
-                    sm($chatID,"Entendi, cadastramento de chave EVP **$uuid**");
+            for ($i=0;$i<count($emails);$i++){
+                $email=$emails[$i];
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $chaves["E"][]=$email;
                 }
                 else {
-                    sm($chatID,"Desculpe mas o EVP utilizado como chave **$uuid** não é uma chave aleatória válida, verifique os dados informados.");
+                    $erros["E"][]=$email;
                 }
             }
-            elseif (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                sm($chatID,"Entendi, cadastramento de chave e-mail **$email**");
+            for ($i=0;$i<count($mais);$i++){
+                $code=$mais[$i];
+                if (preg_match("/^[0-9]{11}$/",$code)) {
+                    if (valida_cpf($code)) {
+                        $chaves["F"][]=$code;
+                    }
+                    else {
+                        $erros["F"][]=$code;
+                    }
+                }
+                elseif (preg_match("/^[0-9]{14}$/",$code)){
+                    if (valida_cnpj($code)) {
+                        $chaves["J"][]=$code;
+                    }
+                    else {
+                        $erros["J"][]=$code;
+                    }
+                }
+                elseif (strlen($msg) == 36){
+                    $uuid=str_replace("-","",$code);
+                    if (valida_uuid($uuid)) {
+                        $chaves["U"][]=$uuid;
+                    }
+                    else {
+                        $erros["U"][]=$code;
+                    }
+                }
+                else {
+                    $erros["X"]=$code;
+                }
             }
-            elseif (valida_telefone($telefone)){
-                sm($chatID,"Entendi, cadastramento da chave telefone **$telefone**");
-
-            }
-            else {
-                sm($chatID,"Não foi possível reconhecer o tipo de chave, verifique a chave digitada **$msg**.");
-            }
-
+            $opaopa=print_r($chaves, true) . "\n" . print_r($erros, true);
+            $resposta="Inclusão de chaves Pix no BOT:
+            $opaopa";
         }
         else {
             sm($chatID,"Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.");
         }
     break;
     default:
-        sm($chatID,"Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos do bot");
+        sm($chatID,"Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos suportados pelo bot.");
         break;
 }
 
