@@ -29,6 +29,35 @@ function formata_chaves($chaves){
    return $txt_retorno;
 }
 
+function localizar_chave_brcode($brcode){
+   if ((substr($brcode,0,6) == "000201") && (preg_match("/BR.GOV.BCB.PIX/",strtoupper($brcode)))) {
+      $enquanto=true;
+      $pos=0;
+      while($enquanto)){
+         $code=substr($brcode,$pos,2);
+         $pos+=2;
+         $tam=substr($brcode,$tam,2);
+         $
+         $n[$code]=substr
+      }
+
+   }
+}
+
+function decode_brcode($brcode){
+   $n=0;
+   while($n < strlen($brcode)) {
+      $codigo=substr($brcode,$n,2);
+      $n+=2;
+      $tamanho=substr($brcode,$n,2);
+      $n+=2;
+      $valor=substr($brcode,$n,$tamanho);
+      $n+=2;
+      $retorno[$codigo]="$valor";
+      $brcode=substr($brcode,$n,strlen($brcode)-$n);
+   }
+   return $retorno;
+}
 
 function valida_uuid($uuid_text) {
 	return preg_match("/^[0-9a-fA-F]{32}$/",$uuid_text);

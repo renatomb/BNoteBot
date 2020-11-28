@@ -22,13 +22,17 @@ if ($update["message"]) {
     $userID = $update["message"]["from"]["id"];
     $entidades = $update["message"]["entities"];
     $msg = $update["message"]["text"];
+    for ($i=0;$i<strlen($msg);$i++){
+        $ascii[]=ord(substr($msg,$i,1));
+    }
+    fwrite($logfile,"Ascii:" . implode(",",$ascii) . "\n");
     $hashtags = $telefones = $emails =array();
     $cmd=false;
     if (is_array($entidades)) {
         fwrite($logfile,"Entidades é um array\n");
         for ($i=0;$i<count($entidades);$i++){
             fwrite($logfile,"Iterando $i\n");
-            $elemento=substr(preg_replace('/[[:^print:]]/', '',$update["message"]["text"]),$entidades[$i]["offset"],$entidades[$i]["length"]);
+            $elemento=substr($update["message"]["text"],$entidades[$i]["offset"],$entidades[$i]["length"]);
             fwrite($logfile,"Elemento: $elemento\n");
             switch($entidades[$i]["type"]) {
                 case "bot_command":
