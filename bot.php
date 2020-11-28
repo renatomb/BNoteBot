@@ -101,7 +101,7 @@ switch($cmd) {
                 }
             }
             elseif (strlen($msg) == 14) {
-                if (valida_cnpj($cnpj)) {
+                if (valida_cnpj($msg)) {
                     sm($chatID,"Entendi, cadastramento de chave de CNPJ **$msg**");
                 }
                 else {
