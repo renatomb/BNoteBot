@@ -13,8 +13,8 @@ $update = json_decode($content, true);
 $logtext=print_r($update, true);
 $logfile=fopen("../log.log","a");
 fwrite($logfile,"$logtext\n");
-fwrite($logfile,"----------------------------\n");
-fclose($logfile);
+fwrite($logfile,"---\n");
+
 
 if ($update["message"]) {
     $chatID = $update["message"]["chat"]["id"];
@@ -41,6 +41,11 @@ if ($update["message"]) {
     $name = $update["message"]["chat"]["first_name"];
 } 
 
+$logtext=print_r($hashtags, true);
+fwrite($logfile,"$logtext\n");
+fwrite($logfile,"COMANDO $cmd\n");
+fwrite($logfile,"--------------------------\n");
+fclose($logfile);
 /*else if($update["callback_query"]["data"]){
     $chatID = $update["callback_query"]["message"]["chat"]["id"];
     $userID = $update["callback_query"]["from"]["id"];
