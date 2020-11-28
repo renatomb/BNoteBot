@@ -141,9 +141,11 @@ switch($cmd) {
                     $erros["X"]=$code;
                 }
             }
-            $opaopa=print_r($chaves, true) . "\n" . print_r($erros, true);
-            $resposta="Inclusão de chaves Pix no @meuPix_bot:
-            $opaopa";
+            $reconhecidas=formata_chaves($chaves);
+            $resposta="Inclusão de chaves Pix no @meuPix_bot:\n$reconhecidas\n";
+            if (count($erros) > 0){
+                $resposta.="Erros encontrados: " . formata_chaves($erros);
+            }
         }
         else {
             $resposta="Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.";

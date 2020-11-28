@@ -1,5 +1,34 @@
 <?php
 
+function formata_chaves($chaves){
+   $txt_retorno='';
+   foreach ($chaves as $tp => $v){
+      switch($tipo){
+         case "F":
+            $tipo="CPF";
+         break;
+         case "J":
+            $tipo="CNPJ";
+         break;
+         case "T":
+            $tipo="Telefone";
+         break;
+         case "E":
+            $tipo="E-mail";
+         break;
+         case "U":
+            $tipo="EVP";
+         break;
+         case "X":
+            $tipo="Desconhecida";
+         break;
+      }
+      if (count($v) > 1){ $tipo.="s"; }
+      $txt_retorno.="- " . count($v) . " $tipo:" . implode(",",$v) . "\n";
+   }
+}
+
+
 function valida_uuid($uuid_text) {
 	return preg_match("/^[0-9a-fA-F]{32}$/",$uuid_text);
 }
