@@ -82,8 +82,6 @@ $logtext=print_r($telefones, true);
 fwrite($logfile,"Telefones: $logtext\n");
 fwrite($logfile,"COMANDO $cmd\n");
 fwrite($logfile,"MSG:$msg\n");
-fwrite($logfile,"--------------------------\n");
-fclose($logfile);
 /*else if($update["callback_query"]["data"]){
     $chatID = $update["callback_query"]["message"]["chat"]["id"];
     $userID = $update["callback_query"]["from"]["id"];
@@ -192,6 +190,8 @@ if ($resposta != ''){
     sm($chatID,$resposta);
 }
 
+fwrite($logfile,"--------------------------\n");
+fclose($logfile);
 /*
 if ($update["chosen_inline_result"]) {
     $result = $dbuser->query("SELECT * FROM BNoteBot_memo WHERE id = " . $update["chosen_inline_result"]["result_id"]);
