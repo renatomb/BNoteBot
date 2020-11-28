@@ -30,9 +30,11 @@ if ($update["message"]) {
                 $ascii[]=str_pad($cha, 3, "0", STR_PAD_LEFT);
                 $msg.=$ltr;
             }
+            else { $extra_offset[$i]=1; }
         }
         else {
             $i+=3;
+            $extra_offset[$i]=3;
         }
     }
     $mensagem=$msg;
