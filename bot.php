@@ -46,7 +46,7 @@ if ($update["message"]) {
 } 
 
 $logtext=print_r($hashtags, true);
-fwrite($logfile,"$logtext\n");
+fwrite($logfile,"Hashtags: $logtext\n");
 fwrite($logfile,"COMANDO $cmd\n");
 fwrite($logfile,"--------------------------\n");
 fclose($logfile);
