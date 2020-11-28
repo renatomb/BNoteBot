@@ -138,7 +138,7 @@ switch($cmd) {
                     }
                 }
                 else {
-                    $erros["X"]=$code;
+                    $erros["X"]=print_r($code,true);
                 }
             }
             $reconhecidas=formata_chaves($chaves);
