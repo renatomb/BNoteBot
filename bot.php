@@ -175,11 +175,14 @@ switch($cmd) {
         }
     break;
     case "/codigo":
-        $resposta="Processando seu BRCode...";
         $brcode=substr($msg,1,strlen($msg)-1);
         $z=decode_brcode($brcode);
-        $logtext=print_r($z, true);
-        fwrite($logfile,"BRCode: $logtext\n");
+        if (is_array($z)) {
+            $resposta="Cadastro de chave " . $z["26"]["01"];
+        }
+        else {
+            $resposta="Seu código não é válido: $brcode";
+        }
     break;
     default:
         $resposta="Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos suportados pelo bot.";

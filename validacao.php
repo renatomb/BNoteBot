@@ -43,14 +43,14 @@ function remove_emoji($string){
 )%xs', '  ', $string);      
 }
 function decode_brcode($brcode){
-   $lcode=fopen("../brcode.log","a");
-   fwrite($lcode,"-------------------------\n");
-   fwrite($lcode,"BRCODE:$brcode\n");
    $n=0;
    while($n < strlen($brcode)) {
       $codigo=substr($brcode,$n,2);
       $n+=2;
       $tamanho=intval(substr($brcode,$n,2));
+      if (!is_numeric($tamanho)) {
+         return false;
+      }
       $n+=2;
       $valor=substr($brcode,$n,$tamanho);
       $n+=$tamanho;
@@ -60,11 +60,7 @@ function decode_brcode($brcode){
       else {
          $retorno[$codigo]="$valor";
       }
-      fwrite($lcode,"$codigo:$valor\n");
-      //$brcode=substr($brcode,$n,strlen($brcode)-$n);
-      //fwrite($lcode,"R:$brcode\n");
    }
-   fclose($lcode);
    return $retorno;
 }
 
