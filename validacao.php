@@ -29,21 +29,6 @@ function formata_chaves($chaves){
    return $txt_retorno;
 }
 
-function localizar_chave_brcode($brcode){
-   if ((substr($brcode,0,6) == "000201") && (preg_match("/BR.GOV.BCB.PIX/",strtoupper($brcode)))) {
-      $enquanto=true;
-      $pos=0;
-      while($enquanto)){
-         $code=substr($brcode,$pos,2);
-         $pos+=2;
-         $tam=substr($brcode,$tam,2);
-         $
-         $n[$code]=substr
-      }
-
-   }
-}
-
 function decode_brcode($brcode){
    $n=0;
    while($n < strlen($brcode)) {
