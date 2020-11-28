@@ -74,11 +74,56 @@ if($numrows == 0 && $update["inline_query"]["id"] == false){
     $justwritemode = $row['justwritemode'];
 }
 
-if ($cmd) {
-    sm($chatId,"Comando: $cmd, conteudo: $msg");
-}
-else {
-    sm($chatID, "Recebido $msg");
+switch($cmd) {
+    case "/start":
+        sm($chatID,BEMVINDO);
+    break;
+    case "/incluir";
+        if (count($hashtags) > 0) {
+            if (strlen($msg) == 11) {
+                if (valida_cpf($msg)) {
+                    sm($chatID,"Entendi, cadastramento de chave de CPF");
+                }
+                else {
+                    sm($chatID,"Desculpe mas o CPF utilizado como chave **$msg** não é um CPF válido, verifique os dados informados.");
+                }
+            }
+            elseif (strlen($msg) == 14) {
+                if (valida_cpf($cnpj)) {
+                    sm($chatID,"Entendi, cadastramento de chave de CNPJ");
+                }
+                else {
+                    sm($chatID,"Desculpe mas o CNPJ utilizado como chave **$msg** não é um CNPJ válido, verifique os dados informados.");
+                }
+            }
+            elseif (strlen($msg) == 36){
+                $uuid=preg_replace("/-/","",$msg);
+                if (valida_uuid($uuid)) {
+                    sm($chatID,"Entendi, cadastramento de chave EVP");
+                }
+                else {
+                    sm($chatID,"Desculpe mas o EVP utilizado como chave **$msg** não é uma chave aleatória válida, verifique os dados informados.");
+                }
+            }
+            elseif (filter_var($msg, FILTER_VALIDATE_EMAIL)) {
+                sm($chatID,"Entendi, cadastramento de chave e-mail **$msg**");
+            }
+            elseif (valida_telefone($msg)){
+                sm($chatID,"Entendi, cadastramento da chave telefone **$msg**");
+
+            }
+            else {
+                sm($chatID,"Não foi possível reconhecer o tipo de chave, verifique a chave digitada.");
+            }
+
+        }
+        else {
+            sm($chatID,"Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.");
+        }
+    break;
+    default:
+        sm($chatID,"Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos do bot");
+        break;
 }
 
 /*
