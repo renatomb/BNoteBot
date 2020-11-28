@@ -131,7 +131,8 @@ switch($cmd) {
             }
             for ($i=0;$i<count($mais);$i++){
                 $code=$mais[$i];
-                if (preg_match("/^[0-9]{11}$/",$code)) {
+                if ((preg_match("/^[0-9]{11}$/",$code)) || (preg_match("/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\.-[0-9]{2}$/",$code))) {
+                    $code=preg_replace("/[^0-9]/", "",$code);
                     if (valida_cpf($code)) {
                         $chaves["F"][]=$code;
                     }
