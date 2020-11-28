@@ -43,9 +43,6 @@ if ($update["message"]) {
                 case "email":
                     $email=$elemento;
                     break;
-                case "code":
-                    $uuid=str_replace(" ","",str_replace("-","",$elemento));
-                    break;
                 default:
                 fwrite($logfile,"Tipo nao reconhecido: " . $entidades[$i]["type"] . "$elemento\n");
             }
@@ -109,11 +106,11 @@ switch($cmd) {
                 }
             }
             elseif (strlen($msg) == 36){
-                if (valida_uuid($uuid)) {
-                    sm($chatID,"Entendi, cadastramento de chave EVP **$uuid**");
+                if (valida_uuid($msg)) {
+                    sm($chatID,"Entendi, cadastramento de chave EVP **$msg**");
                 }
                 else {
-                    sm($chatID,"Desculpe mas o EVP utilizado como chave **$uuid** não é uma chave aleatória válida, verifique os dados informados.");
+                    sm($chatID,"Desculpe mas o EVP utilizado como chave **$msg** não é uma chave aleatória válida, verifique os dados informados.");
                 }
             }
             elseif (filter_var($email, FILTER_VALIDATE_EMAIL)) {
