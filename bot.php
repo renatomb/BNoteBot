@@ -32,7 +32,7 @@ if ($update["message"]) {
         fwrite($logfile,"Entidades é um array\n");
         for ($i=0;$i<count($entidades);$i++){
             fwrite($logfile,"Iterando $i\n");
-            $elemento=substr($update["message"]["text"],$entidades[$i]["offset"],$entidades[$i]["length"]);
+            $elemento=substr(htmlentities($update["message"]["text"],ENT_NOQUOTES,'UTF-8'),$entidades[$i]["offset"],$entidades[$i]["length"]);
             fwrite($logfile,"Elemento: $elemento\n");
             switch($entidades[$i]["type"]) {
                 case "bot_command":
