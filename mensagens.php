@@ -13,14 +13,14 @@ Este bot não se comunica com o sistema do BACEN, logo as chaves já devem ter s
 
 Bot criado por @r3n4t0, gostou? envie um pix! :) 
 8d28bec9-327f-41ee-ad6b-456318c5cce1");
-define(ADICIONAR,"Adicionar chave 🔑 pix");
+/*define(ADICIONAR,"Adicionar chave 🔑 pix");
 define(SALVO,"Ver chaves salvas");
 define(FEEDBACK,"Feedback 📫");
 define(INFORMACOES,"Informacoes: ");
 define(CONFIGURAR,"Configurações 🔧");
 define(CONTRIBUA,"Colabore com o bot");
 define(GITHUB,"Código fonte");
-/*define(M_CONTRIBUA,array(array(
+define(M_CONTRIBUA,array(array(
    "text" => $lang['vote'],
    "url" => "https://telegram.me/storebot?start=meupix_bot"), array(
    "text" => "PicPay 💳",
@@ -29,7 +29,7 @@ define(GITHUB,"Código fonte");
 ));
 define(M_GITHUB,array(array(
    "text" => $lang['github'],
-   "url" => "https://github.com/renatomb/meuPixBot")));*/
+   "url" => "https://github.com/renatomb/meuPixBot")));
 define(COMOCOLABORAR,"Você pode colaborar com o bot das seguintes formas.");
 $lang['info'] = "Info ℹ";
 $lang['vote'] = "Votar ⭐";
@@ -63,5 +63,7 @@ $lang['feedback'] = "Feedback 📫";
 $lang['feedbacktext'] = "📫 - Se esse bot contém problemas ou se você deseja sugerir algo, mande-me uma mensagem por chat (@franci22) ou envie uma mensagem agora:";
 $lang['thanksfeedback'] = "Obrigado pelo seu feedback! ✅";
 $lang['onlytxt'] = "O bot suporta apenas texto por enquanto.";
-$lang['remindertext'] = "Reminder🕒\nSão las ";
+$lang['remindertext'] = "Reminder🕒\nSão las ";*/
+
+
 ?>
