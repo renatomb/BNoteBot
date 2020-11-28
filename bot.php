@@ -25,7 +25,7 @@ if ($update["message"]) {
     for ($i=0;$i<strlen($update["message"]["text"]);$i++){
         $ltr=substr($update["message"]["text"],$i,1);
         $cha=ord($ltr);
-        if ($cha != 240) {
+        if (($cha != 240) && ($cha != 010)) {
             $ascii[]=str_pad($cha, 3, "0", STR_PAD_LEFT);
             $msg.=$ltr;
         }
