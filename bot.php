@@ -21,7 +21,7 @@ if ($update["message"]) {
     $chatID = $update["message"]["chat"]["id"];
     $userID = $update["message"]["from"]["id"];
     $entidades = $update["message"]["entities"];
-    $msg = preg_replace("/[^[:alnum:][:space:]-]/u", '', $update["message"]["text"]);
+    $msg = $update["message"]["text"];
     $hashtags = $telefones = $emails =array();
     $cmd=false;
     if (is_array($entidades)) {
@@ -137,8 +137,8 @@ switch($cmd) {
                         $erros["U"][]=$code;
                     }
                 }
-                else {
-                    $erros["X"][]="[" . strlen($code) . "]$code.";
+                elseif (strlen($code) > 0) {
+                    $erros["X"][]="$code";
                 }
             }
             $reconhecidas=formata_chaves($chaves);
