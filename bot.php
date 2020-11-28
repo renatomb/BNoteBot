@@ -128,7 +128,7 @@ switch($cmd) {
                         $erros["J"][]=$code;
                     }
                 }
-                elseif (strlen($msg) == 36){
+                elseif (strlen($code) == 36){
                     $uuid=str_replace("-","",$code);
                     if (valida_uuid($uuid)) {
                         $chaves["U"][]=$uuid;
@@ -144,7 +144,7 @@ switch($cmd) {
             $reconhecidas=formata_chaves($chaves);
             $resposta="Inclusão de chaves Pix no @meuPix_bot:\n$reconhecidas\n";
             if (count($erros) > 0){
-                $resposta.="Erros encontrados: " . formata_chaves($erros);
+                $resposta.="Erros encontrados:\n" . formata_chaves($erros);
             }
         }
         else {
