@@ -47,7 +47,7 @@ function decode_brcode($brcode){
    while($n < strlen($brcode)) {
       $codigo=substr($brcode,$n,2);
       $n+=2;
-      $tamanho=substr($brcode,$n,2);
+      $tamanho=int(substr($brcode,$n,2));
       $n+=2;
       $valor=substr($brcode,$n,$tamanho);
       $n+=2;
