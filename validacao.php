@@ -53,7 +53,7 @@ function decode_brcode($brcode){
       $tamanho=intval(substr($brcode,$n,2));
       $n+=2;
       $valor=substr($brcode,$n,$tamanho);
-      $n+=2;
+      $n+=$tamanho;
       $retorno[$codigo]="$valor";
       fwrite($lcode,"$codigo:$valor\n");
       //$brcode=substr($brcode,$n,strlen($brcode)-$n);
