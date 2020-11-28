@@ -3,7 +3,7 @@
 function formata_chaves($chaves){
    $txt_retorno='';
    foreach ($chaves as $tp => $v){
-      switch($tipo){
+      switch($tp){
          case "F":
             $tipo="CPF";
          break;
