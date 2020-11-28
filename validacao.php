@@ -32,9 +32,16 @@ function formata_chaves($chaves){
 function remove_acentos($texto){
    $search = explode(",","à,á,â,ä,æ,ã,å,ā,ç,ć,č,è,é,ê,ë,ē,ė,ę,î,ï,í,ī,į,ì,ł,ñ,ń,ô,ö,ò,ó,œ,ø,ō,õ,ß,ś,š,û,ü,ù,ú,ū,ÿ,ž,ź,ż,À,Á,Â,Ä,Æ,Ã,Å,Ā,Ç,Ć,Č,È,É,Ê,Ë,Ē,Ė,Ę,Î,Ï,Í,Ī,Į,Ì,Ł,Ñ,Ń,Ô,Ö,Ò,Ó,Œ,Ø,Ō,Õ,Ś,Š,Û,Ü,Ù,Ú,Ū,Ÿ,Ž,Ź,Ż");
    $replace =explode(",","a,a,a,a,a,a,a,a,c,c,c,e,e,e,e,e,e,e,i,i,i,i,i,i,l,n,n,o,o,o,o,o,o,o,o,s,s,s,u,u,u,u,u,y,z,z,z,A,A,A,A,A,A,A,A,C,C,C,E,E,E,E,E,E,E,I,I,I,I,I,I,L,N,N,O,O,O,O,O,O,O,O,S,S,U,U,U,U,U,Y,Z,Z,Z");
-   return str_replace($search, $replace, $texto);
+   return remove_emoji(str_replace($search, $replace, $texto));
 }
 
+function remove_emoji($string){
+   return preg_replace('%(?:
+   \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
+ | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
+ | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
+)%xs', ' ', $string);      
+}
 function decode_brcode($brcode){
    $n=0;
    while($n < strlen($brcode)) {
