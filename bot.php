@@ -26,17 +26,15 @@ if ($update["message"]) {
         $ltr=substr($update["message"]["text"],$i,1);
         $cha=ord($ltr);
         if ($cha != 240) {
-            if ($cha > 31) {
-                $ascii[]=str_pad($cha, 3, "0", STR_PAD_LEFT);
-                $msg.=$ltr;
-            }
-            else { $extra_offset[$i]=1; }
+            $ascii[]=str_pad($cha, 3, "0", STR_PAD_LEFT);
+            $msg.=$ltr;
         }
         else {
             $i+=3;
             $extra_offset[$i]=3;
         }
     }
+    $mensagem=$msg;
     fwrite($logfile,"Ascii:" . implode(" ",$ascii) . "\n");
     $hashtags = $telefones = $emails =array();
     $cmd=false;
@@ -44,8 +42,7 @@ if ($update["message"]) {
         fwrite($logfile,"Entidades é um array\n");
         for ($i=0;$i<count($entidades);$i++){
             fwrite($logfile,"Iterando $i\n");
-            $correcao_offset=0;
-            $elemento=substr(remove_acentos($update["message"]["text"]),$entidades[$i]["offset"],$entidades[$i]["length"]);
+            $elemento=substr(remove_acentos($mensagem),$entidades[$i]["offset"],$entidades[$i]["length"]);
             fwrite($logfile,"Elemento: $elemento\n");
             switch($entidades[$i]["type"]) {
                 case "bot_command":
