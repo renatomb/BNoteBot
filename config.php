@@ -7,7 +7,7 @@ define(HOSTDB,"localhost");
 define(USERDB,"user");
 define(PASSWORDDB,"password");
 define(DATABASE,"my_database");
-$dbuser = new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASEDB);
+$dbuser = new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASE);
 
 //Other.
 $langdir = "lang/";
