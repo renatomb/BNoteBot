@@ -1,6 +1,6 @@
 <?php
 
-require_once("config.php");
+include("config.php");
 
 function play_sql($sql){
 	$cnx_sql=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASEDB);
