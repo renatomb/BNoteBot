@@ -154,7 +154,7 @@ switch($cmd) {
                 }
                 elseif (strlen($code) >= 36){
                     if (valida_uuid($code)) {
-                        $chaves["U"][]=$code;
+                        $chaves["U"][]=str_replace("-","",substr($code,0,36));
                     }
                     else {
                         $erros["U"][]=$code;
