@@ -179,7 +179,7 @@ switch($cmd) {
             $brcode=substr($msg,1,strlen($msg)-1);
             $z=decode_brcode($brcode);
             if (is_array($z)) {
-                $resposta="Cadastro de chave " . $z["26"]["01"] . " - Beneficiário: " . $z[59];
+                $resposta="Cadastro de chave " . $z["26"]["01"] . " - Beneficiário: <b>" . $z[59] . "</b>";
             }
             else {
                 $resposta="Seu código não é válido: $brcode";
