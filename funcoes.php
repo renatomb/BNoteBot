@@ -90,7 +90,7 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
    $hashes="'" . implode(", ",$hashtags) . "'";
    $query="INSERT INTO $tipo ($tipo, user_id, hashtag) VALUES ($chave, $usuario , $hashes)";
    $logfile=fopen("../log.log","a");
-   fwrite($logfile,"$logtext\n");
+   fwrite($logfile,"$query\n");
    fclose($logfile);
 }
 
