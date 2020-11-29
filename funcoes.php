@@ -3,7 +3,7 @@
 include("config.php");
 
 function play_sql($sql){
-	$cnx_sql=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASEDB);
+	$cnx_sql=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASE);
 	mysqli_set_charset($cnx_sql,'utf8');
 	$dados=mysqli_query($cnx_sql, $sql);
    mysqli_close($cnx_sql);
@@ -40,7 +40,7 @@ function formata_chaves($chaves){
 }
 
 function sql_simples($query){
-	$cn_sqlsim=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASEDB);
+	$cn_sqlsim=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASE);
 	$cn_sqlsim->set_charset("utf8");
 	$ex_sqlsim=mysqli_query($cn_sqlsim,$query);
 	$retorno=mysqli_fetch_row($ex_sqlsim);
