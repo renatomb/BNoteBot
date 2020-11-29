@@ -190,6 +190,7 @@ switch($cmd) {
                     $tipo="cnpj";
                 }
                 elseif ((strlen($chave) == 36) && valida_uuid($chave)) {
+                    $chave=str_replace("-","",substr($chave,0,36));
                     $tipo="evp";
                 }
                 elseif (valida_telefone($chave)) {
