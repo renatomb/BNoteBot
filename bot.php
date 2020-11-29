@@ -94,7 +94,7 @@ fwrite($logfile,"MSG:$msg\n");*/
     $name = $update["inline_query"]["from"]["first_name"];
 }*/
 
-$result = $dbuser->query("SELECT * FROM BNoteBot_user WHERE userID = '" . $userID . "'") or die("0");
+$result = $dbuser->query("SELECT * FROM user WHERE id = '" . $userID . "'") or die("0");
 $numrows = mysqli_num_rows($result);
 if($numrows == 0 && $update["inline_query"]["id"] == false){
     $query = "INSERT INTO user (id, username, firstname) VALUES ('$userID', '$username', '" . $dbuser->real_escape_string($name) . "')";
