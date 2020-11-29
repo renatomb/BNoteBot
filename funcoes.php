@@ -89,9 +89,7 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
    else { $chave="'" . $chave . "'"; }
    $hashes="'" . implode(", ",$hashtags) . "'";
    $query="INSERT INTO $tipo ($tipo, user_id, hashtag) VALUES ($chave, $usuario , $hashes)";
-   $logfile=fopen("../log.log","a");
-   fwrite($logfile,"$query\n");
-   fclose($logfile);
+   sql_simples($query);
 }
 
 function remove_acentos($texto){
