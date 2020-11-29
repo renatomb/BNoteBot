@@ -3,7 +3,7 @@
 require_once("config.php");
 
 function play_sql($sql){
-	$cnx_sql=new mysqli($hostdb, $userdb, $passworddb, $databasedb);
+	$cnx_sql=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASEDB);
 	mysqli_set_charset($cnx_sql,'utf8');
 	$dados=mysqli_query($cnx_sql, $sql);
    mysqli_close($cnx_sql);
@@ -40,7 +40,7 @@ function formata_chaves($chaves){
 }
 
 function sql_simples($query){
-	$cn_sqlsim=new mysqli($hostdb, $userdb, $passworddb, $databasedb);
+	$cn_sqlsim=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASEDB);
 	$cn_sqlsim->set_charset("utf8");
 	$ex_sqlsim=mysqli_query($cn_sqlsim,$query);
 	$retorno=mysqli_fetch_row($ex_sqlsim);
@@ -89,7 +89,7 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
    else { $chave="'" . $chave . "'"; }
    $hashes="'" . implode(", ",$hashtags) . "'";
    $query="INSERT INTO $tipo ($tipo, user_id, hashtag) VALUES ($chave, $usuario , $hashes)";
-   sql_simples($query);
+   return sql_simples($query);
 }
 
 function remove_acentos($texto){
