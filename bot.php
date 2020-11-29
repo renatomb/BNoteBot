@@ -193,7 +193,7 @@ switch($cmd) {
                     $tipo="evp";
                 }
                 elseif (valida_telefone($chave)) {
-                    $tipo="telefone"
+                    $tipo="telefone";
                 }
                 elseif (valida_email($email)){
                     $tipo="email";
