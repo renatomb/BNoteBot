@@ -171,17 +171,22 @@ switch($cmd) {
             $resposta.="Hashtag(s): " . implode(", ",$hashtags);
         }
         else {
-            $resposta="Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para associar a cada chave do pix.";
+            $resposta="Utilize /incluir [chave] #banco para cadastrar uma chave do pix. É necessário utilizar pelo menos uma hashtag para identificar a chave do pix.";
         }
     break;
     case "/codigo":
-        $brcode=substr($msg,1,strlen($msg)-1);
-        $z=decode_brcode($brcode);
-        if (is_array($z)) {
-            $resposta="Cadastro de chave " . $z["26"]["01"];
+        if (count($hashtags) > 0) {
+            $brcode=substr($msg,1,strlen($msg)-1);
+            $z=decode_brcode($brcode);
+            if (is_array($z)) {
+                $resposta="Cadastro de chave " . $z["26"]["01"] . " - Beneficiário: " . $z[59];
+            }
+            else {
+                $resposta="Seu código não é válido: $brcode";
+            }
         }
         else {
-            $resposta="Seu código não é válido: $brcode";
+            $resposta="Utilize /codigo [codigo pix copia e cola] #banco para cadastrar uma chave pix. É necessário utilizar pelo menos uma hashtag para a chave pix.";
         }
     break;
     default:
