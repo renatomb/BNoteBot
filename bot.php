@@ -195,7 +195,7 @@ switch($cmd) {
                 elseif (valida_telefone($chave)) {
                     $tipo="telefone";
                 }
-                elseif (valida_email($email)){
+                elseif (valida_email($chave)){
                     $tipo="email";
                 }
                 if ($tipo != '') {
@@ -203,7 +203,7 @@ switch($cmd) {
                     insere_banco($tipo,$chave,$userID,$hashtags);
                 }
                 else {
-                    $resposta="Erro ao identificar o tipo da chave";
+                    $resposta="Erro ao identificar o tipo da chave: $chave";
                 }
             }
             else {
