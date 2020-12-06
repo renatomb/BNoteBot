@@ -110,6 +110,7 @@ function buscar_chaves($usuario,$hashtags){
       gera_log('db_error',"---\nBuscando: $query");
       $dados=sql_assoc($query);
       $retorno.=count($dados) . " chave(s) encontrada(s):\n\n";
+      gera_log('db_error',"---\nDados:" . print_r($dados, true));
       if (count($dados) > 0) {
          for($i=0;$i<count(dados);$i++){
             $retorno.="- " . $dados[$i]["tipo"] . ": " . $dados[$i]["chave"] . "\n";
