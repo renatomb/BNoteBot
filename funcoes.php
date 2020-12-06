@@ -104,7 +104,7 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
       $id_chave=insere("INSERT INTO $tipo ($tipo, user_id) VALUES ($bd_chave, $usuario)");
    }
    for ($i=0;$i<count($hashtags);$i++){
-      insere("INSERT IGNORE INTO x_" . $tipo . "_hash (user_id, " . $tipo . "_id, hashtag_id) VALUES ($usuario,$id_chave," . $hashtags[$i] . ")");
+      insere("INSERT IGNORE INTO x_" . $tipo . "_hash (user_id, " . $tipo . "_id, hashtag_id) VALUES (" . $usuario . "," . $id_chave . "," . $hashtags[$i] . ")");
    }
 }
 
