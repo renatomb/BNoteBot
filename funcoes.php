@@ -97,7 +97,9 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
          $hashtags[$i]=insere("INSERT INTO hashtag (user_id, tag) VALUES ($usuario," . a($hashtags[$i]) . ")");
       }
    }
-   $id_chave=sql_simples("SELECT id FROM $tipo WHERE user_id=$usuario AND $tipo=$bd_chave");
+   $ssss="SELECT id FROM $tipo WHERE user_id=$usuario AND $tipo=$bd_chave";
+   $id_chave=sql_simples("");
+   gera_log('db_error',"$ssss retornou $id_chave");
    if (!preg_match("/^[0-9]+$/",$id_chave)) {
       $id_chave=insere("INSERT INTO $tipo ($tipo, user_id) VALUES ($bd_chave, $usuario)");
    }
