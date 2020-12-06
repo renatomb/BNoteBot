@@ -88,18 +88,8 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
    if ($tipo == "evp") { $bd_chave="UNHEX('$chave')"; }
    elseif (($tipo=="telefone") && strlen($chave) > 11) { $bd_chave=a(substr($chave,-11)); }
    else { $bd_chave=a($chave); }
-   for ($i=0;$i<count($hashtags);$i++){
-      $idhash=sql_simples("SELECT id FROM hashtag WHERE user_id=$usuario AND tag=" . a($hashtags[$i]));
-      if (preg_match("/^[0-9]+$/",$idhash)) {
-         $hashtags[$i]=$idhash;
-      }
-      else {
-         $hashtags[$i]=insere("INSERT INTO hashtag (user_id, tag) VALUES ($usuario," . a($hashtags[$i]) . ")");
-      }
-   }
-   $ssss="SELECT id FROM $tipo WHERE user_id=$usuario AND $tipo=$bd_chave";
-   $id_chave=sql_simples("$ssss");
-   gera_log('db_error',"$ssss retornou $id_chave");
+   $hashtags=id_hashtags($usuario,$hashtags,true);
+   $id_chave=sql_simples("SELECT id FROM $tipo WHERE user_id=$usuario AND $tipo=$bd_chave");
    if (!preg_match("/^[0-9]+$/",$id_chave)) {
       $id_chave=insere("INSERT INTO $tipo ($tipo, user_id) VALUES ($bd_chave, $usuario)");
    }
@@ -108,8 +98,62 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
    }
 }
 
-function buscar_chaves($hashtags){
- return "TODO!";
+function buscar_chaves($usuario,$hashtags){
+   if (count($hashtags) > 0) {
+      return "Erro, informe uma ou mais hashtags para buscar.";
+   }
+   else {
+      $retorno="Buscando " . implode(", ",$hashtags) . ":\n";
+      $hashtags=id_hashtags($usuario,$hashtags,false);
+      $query="SELECT chave FROM chaves WHERE user_id=$usuario AND hashtag_id=" . $hashtags[0];
+      for ($i=1;$i<count($hashtags);$i++){
+         $query="SELECT chave FROM chaves WHERE user_id=$usuario AND hashtag_id=" . $hashtags[$i] . " AND chave IN ($query)";
+      }
+      $dados=sql_assoc("SELECT tipo, chave FROM chaves WHERE user_id=$usuario AND chave IN ($query)");
+      if (count($dados) > 0) {
+         $retorno.=count($dados) . " chave(s) encontrada(s):\n\n";
+         for($i=0;$i<count(dados);$i++){
+            $retorno.="- " . $dados["tipo"] . ": " . $dados["chave"] . "\n";
+         }
+      }
+      else { $retorno.="Nenhum resultado encontrado."; }
+      return $retorno;
+   }
+}
+
+function id_hashtags($usuario,$hashtags,$insere=false){
+   for ($i=0;$i<count($hashtags);$i++){
+      $idhash=sql_simples("SELECT id FROM hashtag WHERE user_id=$usuario AND tag=" . a($hashtags[$i]));
+      if (preg_match("/^[0-9]+$/",$idhash)) {
+         $hashtags[$i]=$idhash;
+      }
+      elseif ($insere) {
+         $hashtags[$i]=insere("INSERT INTO hashtag (user_id, tag) VALUES ($usuario," . a($hashtags[$i]) . ")");
+      }
+   }
+   return $hashtags;
+}
+
+function sql_assoc($sql){
+   $cn_sqlasso=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASE);
+   $cn_sqlasso->set_charset("utf8");
+	$qf_sqlasso=mysqli_query($cn_sqlasso,$query);
+	if (mysqli_errno($cn_sqlasso) > 0) {
+      gera_log('db_error',"---\n$query\nERRO: " . mysqli_errno($cn_sqlasso) . " - " . mysqli_error($cn_sqlasso));
+		die;
+	}
+	else {
+		$r=0;
+		while ($resultado=mysqli_fetch_assoc($qf_sqlasso)){
+			$retorno[$r]=$resultado;
+			$r++;
+		}
+		mysqli_close($cn_sqlasso);
+	}
+	if ($unico) {
+		$retorno=$retorno[0];
+	}
+	return $retorno;
 }
 
 function insere($sql){

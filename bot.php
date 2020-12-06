@@ -50,9 +50,9 @@ if ($update["message"]) {
                     $cmd=$elemento;
                     break;
                 case "hashtag":
-                    $elemento=preg_replace("/[^A-Za-z0-9_]/", '', remove_acentos($elemento));
-                    if (strlen($elemento) > 0) {
-                        array_push($hashtags,$elemento);
+                    $cadastrar=preg_replace("/[^A-Za-z0-9_]/", '', remove_acentos($elemento));
+                    if (strlen($cadastrar) > 0) {
+                        array_push($hashtags,$cadastrar);
                     }
                     break;
                 case "phone_number":
@@ -219,7 +219,7 @@ switch($cmd) {
         }
     break;
     case "/buscar":
-        buscar_chaves($hashtags);
+        $resposta=buscar_chaves($hashtags);
     break;
     default:
         $resposta="Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos suportados pelo bot.";
