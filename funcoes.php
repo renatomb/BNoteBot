@@ -117,8 +117,8 @@ function insere($sql){
 	$cn_insere->set_charset("utf8");
 	$qf_insere=mysqli_query($cn_insere,$sql);
    $insert_id=mysqli_insert_id($qf_insere);
-	mysqli_close($cn_localiza);
-	if (mysqli_errno($cn_insere)) {
+	mysqli_close($cn_insere);
+	if (mysqli_errno($cn_insere) > 0) {
       gera_log('db_error',"---\n$sql\nERRO: " . mysqli_errno($cn_insere) . " - " . mysqli_error($cn_insere));
 		return "ERRO: " . mysqli_errno($cn_insere);
 	}
