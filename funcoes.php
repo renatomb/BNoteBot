@@ -45,7 +45,7 @@ function sql_simples($query){
 	$ex_sqlsim=mysqli_query($cn_sqlsim,$query);
 	$retorno=mysqli_fetch_row($ex_sqlsim);
 	if (mysqli_errno($cn_sqlsim) > 0) {
-      gera_log('db_error',"---\n$sql\nERRO: " . mysqli_errno($cn_sqlsim) . " - " . mysqli_error($cn_sqlsim));
+      gera_log('db_error',"---\n$query\nERRO: " . mysqli_errno($cn_sqlsim) . " - " . mysqli_error($cn_sqlsim));
 		return "ERRO: ".mysqli_error($cn_sqlsim);
 	}
 	$cn_sqlsim->close();
