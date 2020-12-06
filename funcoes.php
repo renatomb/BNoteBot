@@ -109,10 +109,10 @@ function buscar_chaves($usuario,$hashtags){
       $query="SELECT tipo, chave FROM chaves WHERE user_id=$usuario AND chave IN ($query)";
       gera_log('db_error',"---\nBuscando: $query");
       $dados=sql_assoc($query);
+      $retorno.=count($dados) . " chave(s) encontrada(s):\n\n";
       if (count($dados) > 0) {
-         $retorno.=count($dados) . " chave(s) encontrada(s):\n\n";
          for($i=0;$i<count(dados);$i++){
-            $retorno.="- " . $dados["tipo"] . ": " . $dados["chave"] . "\n";
+            $retorno.="- " . $dados[$i]["tipo"] . ": " . $dados[$i]["chave"] . "\n";
          }
       }
       else { $retorno.="Nenhum resultado encontrado."; }
@@ -151,9 +151,6 @@ function sql_assoc($sql){
 			$r++;
 		}
 		mysqli_close($cn_sqlasso);
-	}
-	if ($unico) {
-		$retorno=$retorno[0];
 	}
 	return $retorno;
 }

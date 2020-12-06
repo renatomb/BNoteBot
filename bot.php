@@ -76,16 +76,13 @@ if ($update["message"]) {
 } 
 $resposta='';
 
-gera_log('db_error',"---\nHashtags:" . print_r($hashtags, true));
+
 /*
-$logtext=print_r($hashtags, true);
-fwrite($logfile,"Hashtags: $logtext\n");
-$logtext=print_r($emails, true);
-fwrite($logfile,"Email: $logtext\n");
-$logtext=print_r($telefones, true);
-fwrite($logfile,"Telefones: $logtext\n");
-fwrite($logfile,"COMANDO $cmd\n");
-fwrite($logfile,"MSG:$msg\n");*/
+gera_log('log',"---\nHashtags:" . print_r($hashtags, true));
+gera_log('log',"Emails:" . print_r($emails, true));
+gera_log('log',"Telefones:" . print_r($telefones, true));
+gera_log('log',"COMANDO $cmd");
+gera_log('log',"MSG: $msg");*/
 
 /*else if($update["callback_query"]["data"]){
     $chatID = $update["callback_query"]["message"]["chat"]["id"];
