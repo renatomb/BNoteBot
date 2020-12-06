@@ -50,7 +50,10 @@ if ($update["message"]) {
                     $cmd=$elemento;
                     break;
                 case "hashtag":
-                    array_push($hashtags,$elemento);
+                    $elemento=preg_replace("/[^A-Za-z0-9_]/", '', remove_acentos($elemento));
+                    if (strlen($elemento) > 0) {
+                        array_push($hashtags,$elemento);
+                    }
                     break;
                 case "phone_number":
                     if (strlen($elemento)>10) {
@@ -214,6 +217,9 @@ switch($cmd) {
         else {
             $resposta="Utilize /codigo [codigo pix copia e cola] #banco para cadastrar uma chave pix. É necessário utilizar pelo menos uma hashtag para a chave pix.";
         }
+    break;
+    case "/buscar":
+        buscar_chaves($hashtags);
     break;
     default:
         $resposta="Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos suportados pelo bot.";

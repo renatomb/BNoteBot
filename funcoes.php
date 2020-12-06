@@ -84,12 +84,41 @@ function valida_email($email){
    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 function insere_banco($tipo,$chave,$usuario,$hashtags){
-   if ($tipo == "evp") { $chave="UNHEX('$chave')"; }
-   elseif (($tipo=="telefone") && strlen($chave) > 11) { $chave="'" . substr($chave,-11) . "'"; }
-   else { $chave="'" . $chave . "'"; }
-   $hashes="'" . implode(", ",$hashtags) . "'";
-   $query="INSERT INTO $tipo ($tipo, user_id, hashtag) VALUES ($chave, $usuario , $hashes)";
-   return sql_simples($query);
+   if ($tipo == "evp") { $bd_chave="UNHEX('$chave')"; }
+   elseif (($tipo=="telefone") && strlen($chave) > 11) { $bd_chave=a(substr($chave,-11)); }
+   else { $bd_chave=a($chave); }
+   for ($i=0;$i<count($hashtags);$i++){
+      $idhash=sql_simples("SELECT id FROM hashtag WHERE user_id=$usuario AND tag=" . a($hashtags[$i]));
+      if (preg_match("/^[0-9]+$/",$idhash)) {
+         $hashtags[$i]=$idhash;
+      }
+      else {
+         $hashtags[$i]=insere("INSERT INTO hashtag (user_id, tag) VALUES ($usuario," . a($hashtags[$i]) . ")");
+      }
+   }
+   $id_chave=sql_simples("SELECT id FROM $tipo WHERE user_id=$usuario AND $tipo=$bd_chave");
+   if (!preg_match("/^[0-9]+$/",$id_chave)) {
+      $id_chave=insere("INSERT INTO $tipo ($tipo, user_id) VALUES ($bd_chave, $usuario");
+   }
+   for ($i=0;$i<count($hashtags);$i++){
+      insere("INSERT IGNORE INTO x_" . $tipo . "_hash (user_id, " . $tipo . "_id, hashtag_id) VALUES ($usuario,$id_chave," . $hashtags[$i] . ")");
+   }
+}
+
+function buscar_chaves($hashtags){
+ return "TODO!";
+}
+
+function insere($sql){
+	$cn_insere=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASE);
+	$cn_insere->set_charset("utf8");
+	$qf_insere=mysqli_query($cn_insere,$sql);
+	$insert_id=mysqli_insert_id($qf_insere);
+	mysqli_close($cn_localiza);
+	if (mysqli_errno($cn_insere)) {
+		return "ERRO: " . mysqli_errno($cn_insere);
+	}
+	else { return $insert_id; }
 }
 
 function remove_acentos($texto){
@@ -104,6 +133,17 @@ function remove_emoji($string){
  | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
  | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
 )%xs', '  ', $string);      
+}
+
+function a($str) {
+	/*
+	Esta função trata um dado antes de enviar para o banco de dados mysql.
+	Caso o conteúdo esteja vazio ele atribui automaticamente NULL, caso seja
+	texto o conteúdo é colocado entre aspas.
+	*/
+   if ($str == "") { $str="NULL"; }
+   else { $str = "'" . preg_replace("/'/","",$str) . "'"; }
+   return $str;
 }
 function decode_brcode($brcode){
    $n=0;
