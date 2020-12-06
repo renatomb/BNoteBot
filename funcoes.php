@@ -109,7 +109,9 @@ function buscar_chaves($usuario,$hashtags){
       for ($i=1;$i<count($hashtags);$i++){
          $query="SELECT chave FROM chaves WHERE user_id=$usuario AND hashtag_id=" . $hashtags[$i] . " AND chave IN ($query)";
       }
-      $dados=sql_assoc("SELECT tipo, chave FROM chaves WHERE user_id=$usuario AND chave IN ($query)");
+      $query="SELECT tipo, chave FROM chaves WHERE user_id=$usuario AND chave IN ($query)";
+      gera_log('db_error',"---\nBuscando: $query");
+      $dados=sql_assoc($query);
       if (count($dados) > 0) {
          $retorno.=count($dados) . " chave(s) encontrada(s):\n\n";
          for($i=0;$i<count(dados);$i++){
