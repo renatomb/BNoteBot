@@ -50,9 +50,9 @@ if ($update["message"]) {
                     $cmd=$elemento;
                     break;
                 case "hashtag":
-                    $elemento=preg_replace("/[^A-Za-z0-9_#]/", '', remove_acentos($elemento));
-                    if (strlen($elemento) > 0) {
-                        array_push($hashtags,strtolower($elemento));
+                    $cadastrar=preg_replace("/[^A-Za-z0-9_\#]/", '', remove_acentos($elemento));
+                    if (strlen($cadastrar) > 0) {
+                        array_push($hashtags,strtolower($cadastrar));
                     }
                     break;
                 case "phone_number":
