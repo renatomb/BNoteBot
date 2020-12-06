@@ -137,7 +137,7 @@ function id_hashtags($usuario,$hashtags,$insere=false){
    return $hashtags;
 }
 
-function sql_assoc($sql){
+function sql_assoc($query){
    $cn_sqlasso=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASE);
    $cn_sqlasso->set_charset("utf8");
 	$qf_sqlasso=mysqli_query($cn_sqlasso,$query);
