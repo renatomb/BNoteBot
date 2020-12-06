@@ -50,7 +50,7 @@ if ($update["message"]) {
                     $cmd=$elemento;
                     break;
                 case "hashtag":
-                    $cadastrar=preg_replace("/[^A-Za-z0-9_\#]/", '', $elemento);
+                    $cadastrar=preg_replace("/[^A-Za-z0-9_]/", '', $elemento);
                     if (strlen($cadastrar) > 0) {
                         array_push($hashtags,strtolower($cadastrar));
                     }

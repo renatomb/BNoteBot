@@ -100,9 +100,6 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
 
 function buscar_chaves($usuario,$hashtags){
    if (count($hashtags) > 0) {
-      return "Erro, informe uma ou mais hashtags para buscar.";
-   }
-   else {
       $retorno="Buscando " . implode(", ",$hashtags) . ":\n";
       $hashtags=id_hashtags($usuario,$hashtags,false);
       $query="SELECT chave FROM chaves WHERE user_id=$usuario AND hashtag_id=" . $hashtags[0];
@@ -120,6 +117,9 @@ function buscar_chaves($usuario,$hashtags){
       }
       else { $retorno.="Nenhum resultado encontrado."; }
       return $retorno;
+   }   
+   else {
+      return "Erro, informe uma ou mais hashtags para buscar.";
    }
 }
 
