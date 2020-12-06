@@ -113,9 +113,15 @@ function insere($sql){
 	$cn_insere=new mysqli(HOSTDB, USERDB, PASSWORDDB, DATABASE);
 	$cn_insere->set_charset("utf8");
 	$qf_insere=mysqli_query($cn_insere,$sql);
-	$insert_id=mysqli_insert_id($qf_insere);
+   $insert_id=mysqli_insert_id($qf_insere);
+
 	mysqli_close($cn_localiza);
 	if (mysqli_errno($cn_insere)) {
+      $logfile=fopen("../log.log","a");
+      fwrite($logfile,"---\n");
+      fwrite($logfile,"$sql\n");
+      fwrite($logfile,"ERRO: " . mysqli_errno($cn_insere) . " - " . mysqli_error($cn_insere) .  "\n");
+      fclose($logfile);
 		return "ERRO: " . mysqli_errno($cn_insere);
 	}
 	else { return $insert_id; }
