@@ -76,6 +76,7 @@ if ($update["message"]) {
 } 
 $resposta='';
 
+gera_log('db_error',"---\nHashtags:" . print_r($hashtags, true));
 /*
 $logtext=print_r($hashtags, true);
 fwrite($logfile,"Hashtags: $logtext\n");
