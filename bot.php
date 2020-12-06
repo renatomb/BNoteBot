@@ -219,7 +219,7 @@ switch($cmd) {
         }
     break;
     case "/buscar":
-        $resposta=buscar_chaves($hashtags);
+        $resposta=buscar_chaves($userID,$hashtags);
     break;
     default:
         $resposta="Não entendi o que você deseja com **" . $update["message"]["text"] . "** por favor digite / para obter a lista de comandos suportados pelo bot.";
