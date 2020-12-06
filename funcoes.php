@@ -45,6 +45,7 @@ function sql_simples($query){
 	$ex_sqlsim=mysqli_query($cn_sqlsim,$query);
 	$retorno=mysqli_fetch_row($ex_sqlsim);
 	if (mysqli_errno($cn_sqlsim) > 0) {
+      gera_log('db_error',"---\n$sql\nERRO: " . mysqli_errno($cn_sqlsim) . " - " . mysqli_error($cn_sqlsim));
 		return "ERRO: ".mysqli_error($cn_sqlsim);
 	}
 	$cn_sqlsim->close();
@@ -98,7 +99,7 @@ function insere_banco($tipo,$chave,$usuario,$hashtags){
    }
    $id_chave=sql_simples("SELECT id FROM $tipo WHERE user_id=$usuario AND $tipo=$bd_chave");
    if (!preg_match("/^[0-9]+$/",$id_chave)) {
-      $id_chave=insere("INSERT INTO $tipo ($tipo, user_id) VALUES ($bd_chave, $usuario");
+      $id_chave=insere("INSERT INTO $tipo ($tipo, user_id) VALUES ($bd_chave, $usuario)");
    }
    for ($i=0;$i<count($hashtags);$i++){
       insere("INSERT IGNORE INTO x_" . $tipo . "_hash (user_id, " . $tipo . "_id, hashtag_id) VALUES ($usuario,$id_chave," . $hashtags[$i] . ")");
@@ -114,17 +115,18 @@ function insere($sql){
 	$cn_insere->set_charset("utf8");
 	$qf_insere=mysqli_query($cn_insere,$sql);
    $insert_id=mysqli_insert_id($qf_insere);
-
 	mysqli_close($cn_localiza);
 	if (mysqli_errno($cn_insere)) {
-      $logfile=fopen("../log.log","a");
-      fwrite($logfile,"---\n");
-      fwrite($logfile,"$sql\n");
-      fwrite($logfile,"ERRO: " . mysqli_errno($cn_insere) . " - " . mysqli_error($cn_insere) .  "\n");
-      fclose($logfile);
+      gera_log('db_error',"---\n$sql\nERRO: " . mysqli_errno($cn_insere) . " - " . mysqli_error($cn_insere));
 		return "ERRO: " . mysqli_errno($cn_insere);
 	}
 	else { return $insert_id; }
+}
+
+function gera_log($arq,$mensagem){
+   $logfile=fopen("../$arq.log","a");
+   fwrite($logfile,"$mensagem\n");
+   fclose($logfile);
 }
 
 function remove_acentos($texto){
