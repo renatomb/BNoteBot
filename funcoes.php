@@ -110,7 +110,7 @@ function buscar_chaves($usuario,$hashtags){
       if (count($dados) > 0) {
          $retorno.=count($dados) . " chave(s) encontrada(s):\n\n";
          for($i=0;$i<count(dados);$i++){
-            $retorno.=$dados[$i]["hashtags"] . "\n- " . $dados[$i]["tipo"] . ": " . $dados[$i]["chave"] . ")\n";
+            $retorno.=$dados[$i]["hashtags"] . "\n- " . $dados[$i]["tipo"] . ": " . $dados[$i]["chave"] . "\n";
          }
       }
       else { $retorno.="Nenhum resultado encontrado."; }
