@@ -109,7 +109,7 @@ function buscar_chaves($usuario,$hashtags){
       $dados=sql_assoc("SELECT DISTINCT chave, tipo FROM chaves WHERE user_id=$usuario AND chave IN ($query)");
       if (count($dados) > 0) {
          $retorno.=count($dados) . " chave(s) encontrada(s):\n\n";
-         for($i=0;$i<count(dados);$i++){
+         for($i=0;$i<count($dados);$i++){
             $tags=sql_simples("SELECT CONCAT('#',GROUP_CONCAT(tag SEPARATOR ', #')) FROM chaves WHERE user_id=$usuario AND chave=" . a($dados[$i]["chave"]) . " AND tipo=" . a($dados[$i]["tipo"]));
             $retorno.=$tags . "\n- " . $dados[$i]["tipo"] . ": " . $dados[$i]["chave"] . "\n";
          }
