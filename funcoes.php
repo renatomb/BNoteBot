@@ -118,7 +118,7 @@ function buscar_chaves($usuario,$hashtags){
       return $retorno;
    }   
    else {
-      return "Erro, informe uma ou mais hashtags para buscar.";
+      return "Erro, nenhuma hashtag informada.\nUtilize: /buscar #hashtag para buscar as chaves com aquela hashtag.\nÉ possível especificar mais de uma hashtag na busca.";
    }
 }
 
