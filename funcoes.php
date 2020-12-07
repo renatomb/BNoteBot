@@ -154,7 +154,8 @@ function sql_assoc($query){
          $retorno=array();
       }
 		mysqli_close($cn_sqlasso);
-	}
+   }
+   gera_log('db_error',"---\n$query\nERRO: " . print_r($retorno,true));
 	return $retorno;
 }
 
