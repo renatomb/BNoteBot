@@ -143,11 +143,16 @@ function sql_assoc($query){
 		die;
 	}
 	else {
-		$r=0;
-		while ($resultado=mysqli_fetch_assoc($qf_sqlasso)){
-			$retorno[$r]=$resultado;
-			$r++;
-		}
+      if (mysqli_num_rows($qf_sqlasso) > 0) {
+         $r=0;
+         while ($resultado=mysqli_fetch_assoc($qf_sqlasso)){
+            $retorno[$r]=$resultado;
+            $r++;
+         }
+      }
+      else {
+         $retorno=NULL;
+      }
 		mysqli_close($cn_sqlasso);
 	}
 	return $retorno;
