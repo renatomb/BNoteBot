@@ -106,11 +106,12 @@ function buscar_chaves($usuario,$hashtags){
       for ($i=1;$i<count($hashtags);$i++){
          $query="SELECT chave FROM chaves WHERE user_id=$usuario AND hashtag_id=" . $hashtags[$i] . " AND chave IN ($query)";
       }
-      $dados=sql_assoc("SELECT DISTINCT chave, tipo, CONCAT('#',GROUP_CONCAT(tag SEPARATOR ', #')) hashtags FROM chaves WHERE user_id=$usuario AND chave IN ($query)");
+      $dados=sql_assoc("SELECT DISTINCT chave, tipo FROM chaves WHERE user_id=$usuario AND chave IN ($query)");
       if (count($dados) > 0) {
          $retorno.=count($dados) . " chave(s) encontrada(s):\n\n";
          for($i=0;$i<count(dados);$i++){
-            $retorno.=$dados[$i]["hashtags"] . "\n- " . $dados[$i]["tipo"] . ": " . $dados[$i]["chave"] . "\n";
+            $tags=sql_simples("SELECT CONCAT('#',GROUP_CONCAT(tag SEPARATOR ', #')) FROM chaves WHERE user_id=$usuario AND chave=" . a($dados[$i]["chave"]) . " AND tipo=" . a($dados[$i]["tipo"]));
+            $retorno.=$tags . "\n- " . $dados[$i]["tipo"] . ": " . $dados[$i]["chave"] . "\n";
          }
       }
       else { $retorno.="Nenhum resultado encontrado."; }
@@ -155,7 +156,6 @@ function sql_assoc($query){
       }
 		mysqli_close($cn_sqlasso);
    }
-   gera_log('db_error',"---\n$query\nERRO: " . print_r($retorno,true));
 	return $retorno;
 }
 
