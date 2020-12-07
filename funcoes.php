@@ -151,7 +151,7 @@ function sql_assoc($query){
          }
       }
       else {
-         $retorno=NULL;
+         $retorno=array();
       }
 		mysqli_close($cn_sqlasso);
 	}
